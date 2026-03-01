@@ -1,0 +1,16 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #0E0600;
+  color: #F5E6D0;
+  font-family: Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0E0600; }
+::-webkit-scrollbar-thumb { background: rgba(200,75,49,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #C84B31; }
+
+input::placeholder { color: #3A2010; }
+input:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; }
