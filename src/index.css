@@ -13,4 +13,35 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: #C84B31; }
 
 input::placeholder { color: #3A2010; }
-input:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; }
+input:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(200,75,49,0.2); }
+select:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(200,75,49,0.2); }
+
+/* Keyboard focus indicators — only show on keyboard navigation */
+*:focus-visible {
+  outline: 2px solid #C84B31 !important;
+  outline-offset: 2px;
+}
+
+/* Remove outline for mouse clicks */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip navigation link */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: #1A0800;
+  color: #F5E6D0;
+  font-family: monospace;
+  font-size: 13px;
+  text-decoration: none;
+  border-radius: 0 0 8px 8px;
+  transition: top 0.2s;
+}
+.skip-nav:focus {
+  top: 0;
+}
