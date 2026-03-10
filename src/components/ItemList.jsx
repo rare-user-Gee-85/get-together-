@@ -4,7 +4,7 @@ import { T, S } from '../styles';
 export default function ItemList({ items, guests, hosts, category, onToggleBrought, onAssign, onRemove, onHostCoverCategory }) {
   const allPeople = [...(hosts||[]), ...(guests||[])];
   const color = CAT_COLORS_LIGHT[category] || T.accent;
-  const symbol = CAT_SYMBOLS[category] || "○";
+  const symbol = CAT_SYMBOLS[category] || "O";
 
   if (!items.length) return (
     <div style={{ textAlign:"center", padding:"52px 24px", border:"2px dashed rgba(0,0,0,0.1)", borderRadius:12 }}>
@@ -29,7 +29,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
                 color: allCovered ? "#fff" : T.textMid,
                 cursor:"pointer", fontFamily:"monospace", letterSpacing:"1px",
               }}>
-                👑 {h.name} covers {category}
+                {h.name} covers {category}
               </button>
             );
           })}
@@ -54,7 +54,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
               border: `2px solid ${item.brought ? color : "rgba(0,0,0,0.2)"}`,
               display:"flex", alignItems:"center", justifyContent:"center",
             }}>
-              {item.brought && <span style={{ color:"#fff", fontSize:13, lineHeight:1 }}>✓</span>}
+              {item.brought && <span style={{ color:"#fff", fontSize:13, lineHeight:1 }}>&#10003;</span>}
             </div>
 
             {/* Name */}
@@ -71,12 +71,12 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
               cursor:"pointer", fontFamily:"monospace", maxWidth:120,
             }}>
               <option value="">Unassigned</option>
-              {allPeople.map(g => <option key={g.id} value={g.id}>{g.isHost?"👑":""}{g.name}</option>)}
+              {allPeople.map(g => <option key={g.id} value={g.id}>{g.isHost ? "(H) " : ""}{g.name}</option>)}
             </select>
 
             {/* Remove */}
             <button onClick={() => onRemove(item.id)} aria-label={`Remove ${item.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.15)", cursor:"pointer", fontSize:18, flexShrink:0, padding:0 }}
-              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(0,0,0,0.15)"}>×</button>
+              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(0,0,0,0.15)"}>&times;</button>
           </div>
         );
       })}
