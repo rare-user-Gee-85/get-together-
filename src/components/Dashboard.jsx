@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { FOOD_STRUCTURE, NON_FOOD, CAT_COLORS_LIGHT, CAT_SYMBOLS, uid, buildRSVPLink } from '../data';
 import { S, T } from '../styles';
 import AddFoodModal from './AddFoodModal';
@@ -88,7 +88,7 @@ export default function Dashboard({ event, initialGuests, initialHosts, onDataCh
   const isFood = FOOD_TABS.includes(activeTab);
   const visibleItems = items.filter(i => i.category === activeTab);
   const activeCatColor = CAT_COLORS_LIGHT[activeTab] || T.accent;
-  const activeCatSymbol = CAT_SYMBOLS[activeTab] || "○";
+  const activeCatSymbol = CAT_SYMBOLS[activeTab] || "â";
 
   const formatDate = (d) => d ? new Date(d+"T00:00:00").toLocaleDateString("en-US",{weekday:"short",month:"long",day:"numeric"}) : null;
 
@@ -109,10 +109,10 @@ export default function Dashboard({ event, initialGuests, initialHosts, onDataCh
 .item-name{flex:1;font-size:14px;}.item-tag{font-family:monospace;font-size:10px;padding:3px 8px;border-radius:10px;color:#fff;}
 .footer{margin-top:32px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:3px;color:#bbb;border-top:1px solid #ddd;padding-top:14px;}
 </style></head><body>
-<div class="header"><div class="stripes"></div><div class="meta">🔥 GET TOGETHER · COOKOUT COMMAND STATION</div><h1>${event.name}</h1><div class="meta">${[event.date?formatDate(event.date):"",event.location?`📍 ${event.location}`:"",event.address?`🗺 ${event.address}`:""].filter(Boolean).join("  ·  ")}</div></div>
+<div class="header"><div class="stripes"></div><div class="meta">ð¥ GET TOGETHER Â· COOKOUT COMMAND STATION</div><h1>${event.name}</h1><div class="meta">${[event.date?formatDate(event.date):"",event.location?`ð ${event.location}`:"",event.address?`ðº ${event.address}`:""].filter(Boolean).join("  Â·  ")}</div></div>
 <div class="stats"><div class="stat"><div class="stat-num">${allPeople.length}</div><div class="stat-label">Guests</div></div><div class="stat"><div class="stat-num">${items.length}</div><div class="stat-label">Items</div></div><div class="stat"><div class="stat-num">${assignedCount}</div><div class="stat-label">Assigned</div></div><div class="stat"><div class="stat-num">${progress}%</div><div class="stat-label">Ready</div></div></div>
-${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)return "";const color=CAT_COLORS_LIGHT[cat]||"#C84B31";const sym=CAT_SYMBOLS[cat]||"○";return `<div class="cat-header" style="color:${color}"><span class="cat-symbol">${sym}</span><span class="cat-name">${cat}</span></div>${ci.map(item=>{const g=item.assignedTo?getGuest(item.assignedTo):null;return `<div class="item"><div class="check"></div><div class="item-name">${item.name}</div>${g?`<span class="item-tag" style="background:${color}">${g.name}</span>`:""}</div>`;}).join("")}`;}).join("")}
-<div class="footer">MADE WITH GET TOGETHER · COOKOUT COMMAND STATION · RARE UX DESIGN</div>
+${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)return "";const color=CAT_COLORS_LIGHT[cat]||"#C84B31";const sym=CAT_SYMBOLS[cat]||"â";return `<div class="cat-header" style="color:${color}"><span class="cat-symbol">${sym}</span><span class="cat-name">${cat}</span></div>${ci.map(item=>{const g=item.assignedTo?getGuest(item.assignedTo):null;return `<div class="item"><div class="check"></div><div class="item-name">${item.name}</div>${g?`<span class="item-tag" style="background:${color}">${g.name}</span>`:""}</div>`;}).join("")}`;}).join("")}
+<div class="footer">MADE WITH GET TOGETHER Â· COOKOUT COMMAND STATION Â· RARE UX DESIGN</div>
 </body></html>`;
   };
 
@@ -131,14 +131,27 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     return `data:text/html;base64,${encoded}`;
   };
 
-  // ── SHARED MODALS ──────────────────────────────────────────────
+  // ââ Escape key for Dashboard modals ââââââââââââââââââââââââââââ
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        if (showResetConfirm) setShowResetConfirm(false);
+        else if (showGuestPanel) setShowGuestPanel(false);
+        // AddFoodModal and InviteModal handle their own Escape
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [showResetConfirm, showGuestPanel]);
+
+  // ââ SHARED MODALS ââââââââââââââââââââââââââââââââââââââââââââââ
   const Modals = () => (<>
     {showAddFood && <AddFoodModal onAddMany={addManyItems} onClose={() => setShowAddFood(false)} />}
     {showInvite && <InviteModal event={event} guests={allPeople} items={items} hosts={hosts} pdfDataURL={getPDFDataURL()} onClose={() => setShowInvite(false)} />}
     {showResetConfirm && (
-      <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:500, padding:16 }}>
-        <div style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }}>
-          <div style={{ fontSize:36, marginBottom:12 }}>⚠️</div>
+      <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:500, padding:16 }} onClick={() => setShowResetConfirm(false)}>
+        <div role="alertdialog" aria-label="Confirm reset" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
+          <div style={{ fontSize:36, marginBottom:12 }}>â ï¸</div>
           <h3 style={{ fontWeight:"normal", fontSize:20, margin:"0 0 10px", color:T.text }}>Start Over?</h3>
           <p style={{ color:T.textMuted, fontSize:14, margin:"0 0 24px", lineHeight:1.7 }}>This clears all event data. Save your PDF first if needed.</p>
           <div style={{ display:"flex", gap:10 }}>
@@ -151,28 +164,28 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     {showGuestPanel && (
       <div style={{ position:"fixed", inset:0, zIndex:400, display:"flex", flexDirection:"column", justifyContent:"flex-end" }}>
         <div onClick={() => setShowGuestPanel(false)} style={{ flex:1, background:"rgba(0,0,0,0.5)" }} />
-        <div style={{ background:T.bg, borderRadius:"16px 16px 0 0", padding:24, maxHeight:"72vh", overflowY:"auto", borderTop:"1px solid rgba(0,0,0,0.1)" }}>
+        <div role="dialog" aria-label="Guest list" style={{ background:T.bg, borderRadius:"16px 16px 0 0", padding:24, maxHeight:"72vh", overflowY:"auto", borderTop:"1px solid rgba(0,0,0,0.1)" }}>
           <div style={{ width:36, height:4, background:"rgba(0,0,0,0.15)", borderRadius:2, margin:"0 auto 20px" }} />
           <h3 style={{ fontWeight:"normal", fontSize:20, color:T.text, margin:"0 0 16px" }}>Guest List</h3>
           {hosts.map(h => (
             <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.2)", borderRadius:8, padding:"10px 14px", marginBottom:6 }}>
-              <div style={{ fontSize:14, color:T.text }}>👑 {h.name}</div>
+              <div style={{ fontSize:14, color:T.text }}>ð {h.name}</div>
               <div style={{ fontSize:11, color:T.accent, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
             </div>
           ))}
           {guests.map(g => (
             <div key={g.id} style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"10px 14px", marginBottom:6, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
-                <div style={{ fontSize:14, color:T.text }}>👤 {g.name}</div>
+                <div style={{ fontSize:14, color:T.text }}>ð¤ {g.name}</div>
                 <div style={{ fontSize:11, color:T.textMuted, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
               </div>
-              <span onClick={() => removeGuest(g.id)} style={{ color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:22 }}>×</span>
+              <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:22, padding:0 }}>Ã</button>
             </div>
           ))}
           <div style={{ display:"flex", gap:8, marginTop:12 }}>
-            <input style={{ ...S.input, flex:1, fontSize:14 }} placeholder="Add guest..." value={newGuest}
+            <input aria-label="Add a guest" style={{ ...S.input, flex:1, fontSize:14 }} placeholder="Add guest..." value={newGuest}
               onChange={e => setNewGuest(e.target.value)} onKeyDown={e => e.key==="Enter" && addGuest()} />
-            <button onClick={addGuest} style={{ ...S.btn, padding:"12px 16px" }}>+</button>
+            <button onClick={addGuest} aria-label="Add guest" style={{ ...S.btn, padding:"12px 16px" }}>+</button>
           </div>
           <button onClick={() => setShowGuestPanel(false)} style={{ ...S.ghostBtn, width:"100%", marginTop:12 }}>Done</button>
         </div>
@@ -180,25 +193,25 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     )}
   </>);
 
-  // ── COLOR BLOCK HEADER (shared) ────────────────────────────────
+  // ââ COLOR BLOCK HEADER (shared) ââââââââââââââââââââââââââââââââ
   const ColorBlockHeader = ({ compact }) => (
-    <div style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px" }}>
+    <header style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px" }}>
       <Stripes />
       <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"Georgia,serif", fontWeight:"bold", color:"rgba(0,0,0,0.07)", lineHeight:1, userSelect:"none" }}>
         {activeCatSymbol}
       </div>
       <div style={{ position:"relative", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
         <div>
-          <div style={{ fontFamily:"monospace", fontSize:9, letterSpacing:"3px", color:"rgba(255,255,255,0.6)", marginBottom:compact?4:6 }}>🔥 GET TOGETHER</div>
+          <div style={{ fontFamily:"monospace", fontSize:9, letterSpacing:"3px", color:"rgba(255,255,255,0.6)", marginBottom:compact?4:6 }}>ð¥ GET TOGETHER</div>
           <div style={{ fontFamily:"Georgia,serif", color:"#F5E6D0", fontSize: compact?20:24, fontWeight:"normal" }}>{event.name}</div>
-          {!compact && event.date && <div style={{ color:"rgba(255,255,255,0.6)", fontSize:12, fontFamily:"monospace", marginTop:2 }}>{formatDate(event.date)}{event.location?` · 📍 ${event.location}`:""}</div>}
-          {!compact && event.address && <div style={{ color:"rgba(255,255,255,0.5)", fontSize:11, fontFamily:"monospace", marginTop:1 }}>📍 {event.address}</div>}
+          {!compact && event.date && <div style={{ color:"rgba(255,255,255,0.6)", fontSize:12, fontFamily:"monospace", marginTop:2 }}>{formatDate(event.date)}{event.location?` Â· ð ${event.location}`:""}</div>}
+          {!compact && event.address && <div style={{ color:"rgba(255,255,255,0.5)", fontSize:11, fontFamily:"monospace", marginTop:1 }}>ð {event.address}</div>}
         </div>
         <div style={{ display:"flex", gap:6 }}>
-          <button onClick={() => setShowGuestPanel(true)} style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer", fontFamily:"monospace" }}>
-            👥 {allPeople.length}
+          <button onClick={() => setShowGuestPanel(true)} aria-label={`Guest list â ${allPeople.length} people`} title="Guest List" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer", fontFamily:"monospace" }}>
+            ð¥ {allPeople.length}
           </button>
-          <button onClick={() => setShowInvite(true)} style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer" }}>📨</button>
+          <button onClick={() => setShowInvite(true)} aria-label="Send invites" title="Send Invites" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer" }}>ð¨</button>
         </div>
       </div>
       {!compact && items.length > 0 && (
@@ -214,22 +227,22 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           <div style={{ height:3, background:"rgba(0,0,0,0.2)", borderRadius:2 }}>
             <div style={{ height:"100%", width:`${progress}%`, background:"rgba(255,255,255,0.6)", borderRadius:2, transition:"width 0.5s" }} />
           </div>
-          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:9, color:"rgba(255,255,255,0.5)", fontFamily:"monospace" }}>SAVED ✓</div>}
+          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:9, color:"rgba(255,255,255,0.5)", fontFamily:"monospace" }}>SAVED â</div>}
         </div>
       )}
-    </div>
+    </header>
   );
 
-  // ── TAB BARS ───────────────────────────────────────────────────
+  // ââ TAB BARS âââââââââââââââââââââââââââââââââââââââââââââââââââ
   const TabScroll = () => (
-    <div style={{ background:T.bg, borderBottom:"1px solid rgba(0,0,0,0.08)" }}>
-      <div style={{ display:"flex", overflowX:"auto", scrollbarWidth:"none", padding:"0 8px" }}>
+    <nav aria-label="Category tabs" style={{ background:T.bg, borderBottom:"1px solid rgba(0,0,0,0.08)" }}>
+      <div role="tablist" style={{ display:"flex", overflowX:"auto", scrollbarWidth:"none", padding:"0 8px" }}>
         {ALL_TABS.map(t => {
           const color = CAT_COLORS_LIGHT[t];
           const isActive = activeTab === t;
           const count = items.filter(i => i.category === t).length;
           return (
-            <button key={t} onClick={() => setActiveTab(t)} style={{
+            <button key={t} role="tab" aria-selected={isActive} aria-label={`${t} â ${count} items`} onClick={() => setActiveTab(t)} style={{
               flexShrink:0, padding:"12px 14px", background:"none", border:"none",
               borderBottom: isActive ? `3px solid ${color}` : "3px solid transparent",
               color: isActive ? color : T.textMuted,
@@ -243,10 +256,10 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 
-  // ── QUICK ADD ROW ──────────────────────────────────────────────
+  // ââ QUICK ADD ROW ââââââââââââââââââââââââââââââââââââââââââââââ
   const QuickAdd = () => {
     if (isFood) return (
       <div style={{ padding:"10px 16px", background:T.surface, borderBottom:"1px solid rgba(0,0,0,0.06)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -273,14 +286,14 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     );
   };
 
-  // ── BOTTOM NAV ─────────────────────────────────────────────────
+  // ââ BOTTOM NAV âââââââââââââââââââââââââââââââââââââââââââââââââ
   const BottomNav = () => (
-    <div style={{ position:"fixed", bottom:0, left:0, right:0, background:T.bg, borderTop:"1px solid rgba(0,0,0,0.1)", display:"flex", zIndex:200 }}>
+    <nav aria-label="Main navigation" style={{ position:"fixed", bottom:0, left:0, right:0, background:T.bg, borderTop:"1px solid rgba(0,0,0,0.1)", display:"flex", zIndex:200 }}>
       {[
-        { id:"list", icon:"📋", label:"LIST" },
-        { id:"guests", icon:"👥", label:"GUESTS" },
-        { id:"invite", icon:"📨", label:"INVITE" },
-        { id:"reset", icon:"↺", label:"RESET" },
+        { id:"list", icon:"ð", label:"LIST" },
+        { id:"guests", icon:"ð¥", label:"GUESTS" },
+        { id:"invite", icon:"ð¨", label:"INVITE" },
+        { id:"reset", icon:"âº", label:"RESET" },
       ].map(({ id, icon, label }) => (
         <button key={id} onClick={() => {
           if (id === "guests") setShowGuestPanel(true);
@@ -296,10 +309,10 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           <span style={{ fontSize:8, fontFamily:"monospace", letterSpacing:"2px" }}>{label}</span>
         </button>
       ))}
-    </div>
+    </nav>
   );
 
-  // ── MOBILE ─────────────────────────────────────────────────────
+  // ââ MOBILE âââââââââââââââââââââââââââââââââââââââââââââââââââââ
   if (isMobile) return (
     <div style={{ minHeight:"100vh", background:T.bg, paddingBottom:80 }}>
       <Modals />
@@ -308,7 +321,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
         <TabScroll />
       </div>
       <QuickAdd />
-      <div style={{ padding:"16px 16px 0" }}>
+      <div id="main-content" style={{ padding:"16px 16px 0" }}>
         <ItemList
           items={visibleItems} guests={allPeople} hosts={hosts} category={activeTab}
           onToggleBrought={toggleBrought} onAssign={assignItem} onRemove={removeItem}
@@ -319,7 +332,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     </div>
   );
 
-  // ── DESKTOP ────────────────────────────────────────────────────
+  // ââ DESKTOP ââââââââââââââââââââââââââââââââââââââââââââââââââââ
   return (
     <div style={{ minHeight:"100vh", background:T.bg }}>
       <Modals />
@@ -336,21 +349,21 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
             <p style={{ ...S.label, margin:"0 0 10px" }}>Guest List</p>
             {hosts.map(h => (
               <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.15)", borderRadius:8, padding:"8px 12px", marginBottom:4 }}>
-                <div style={{ fontSize:13, color:T.text }}>👑 {h.name}</div>
+                <div style={{ fontSize:13, color:T.text }}>ð {h.name}</div>
                 <div style={{ fontSize:10, color:T.accent, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
               </div>
             ))}
             {guests.map(g => (
               <div key={g.id} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"8px 12px", marginBottom:4, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div>
-                  <div style={{ fontSize:13, color:T.text }}>👤 {g.name}</div>
+                  <div style={{ fontSize:13, color:T.text }}>ð¤ {g.name}</div>
                   <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
                 </div>
-                <span onClick={() => removeGuest(g.id)} style={{ color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:18 }}>×</span>
+                <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:18, padding:0 }}>Ã</button>
               </div>
             ))}
             <div style={{ display:"flex", gap:6, marginTop:8 }}>
-              <input style={{ ...S.input, flex:1, padding:"8px 10px", fontSize:13 }} placeholder="Add guest..."
+              <input aria-label="Add a guest" style={{ ...S.input, flex:1, padding:"8px 10px", fontSize:13 }} placeholder="Add guest..."
                 value={newGuest} onChange={e => setNewGuest(e.target.value)} onKeyDown={e => e.key==="Enter" && addGuest()} />
               <button onClick={addGuest} style={{ ...S.btn, padding:"8px 12px", background:activeCatColor }}>+</button>
             </div>
@@ -372,14 +385,14 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
 
           {/* Actions */}
           <div style={{ marginTop:16, display:"flex", flexDirection:"column", gap:8 }}>
-            <button onClick={() => setShowInvite(true)} style={{ ...S.btn, background:activeCatColor, padding:"11px", textAlign:"center" }}>📨 Invite Guests</button>
-            <button onClick={exportPDF} style={{ ...S.ghostBtn, padding:"11px", textAlign:"center" }}>💾 Save PDF</button>
-            <button onClick={() => setShowResetConfirm(true)} style={{ ...S.ghostBtn, padding:"11px", textAlign:"center", color:"rgba(0,0,0,0.3)" }}>↺ Reset</button>
+            <button onClick={() => setShowInvite(true)} style={{ ...S.btn, background:activeCatColor, padding:"11px", textAlign:"center" }}>ð¨ Invite Guests</button>
+            <button onClick={exportPDF} style={{ ...S.ghostBtn, padding:"11px", textAlign:"center" }}>ð¾ Save PDF</button>
+            <button onClick={() => setShowResetConfirm(true)} style={{ ...S.ghostBtn, padding:"11px", textAlign:"center", color:"rgba(0,0,0,0.3)" }}>âº Reset</button>
           </div>
         </aside>
 
         {/* Main */}
-        <main>
+        <main id="main-content">
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:16 }}>
             <div style={{ display:"flex", alignItems:"center", gap:12 }}>
               <div style={{ background:activeCatColor, width:40, height:40, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center", fontSize:20, color:"#fff", fontWeight:"bold" }}>
