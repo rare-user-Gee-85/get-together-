@@ -35,7 +35,7 @@ export default function RSVPView() {
   if (error) return (
     <div style={{ minHeight:"100vh", background:T.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}>
       <div style={{ textAlign:"center" }}>
-        <div style={{ fontSize:48, marginBottom:16 }}>🤔</div>
+        <div style={{ fontSize:28, marginBottom:16, color:T.textMuted, fontFamily:"monospace" }}>?</div>
         <p style={{ color:T.textMuted, fontFamily:"monospace" }}>Invalid invite link</p>
       </div>
     </div>
@@ -59,23 +59,26 @@ export default function RSVPView() {
     <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"Georgia, serif" }}>
 
       {/* Header */}
-      <div style={{ background:"linear-gradient(135deg,#1E0C00,#2D1500)", borderBottom:`1px solid rgba(200,75,49,0.2)`, padding:"28px 24px" }}>
-        <div style={{ maxWidth:560, margin:"0 auto" }}>
-          <div style={{ color:T.accent, fontSize:10, letterSpacing:"4px", fontFamily:"monospace", marginBottom:8 }}>🔥 GET TOGETHER — INVITE</div>
-          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:"normal", color:T.text, margin:"0 0 12px" }}>
+      <div style={{ background:T.accent, borderBottom:"1px solid rgba(0,0,0,0.1)", padding:"28px 24px", position:"relative", overflow:"hidden" }}>
+        {[...Array(10)].map((_,i) => (
+          <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.07)", top: i*16 }} />
+        ))}
+        <div style={{ maxWidth:560, margin:"0 auto", position:"relative" }}>
+          <div style={{ color:"rgba(255,255,255,0.6)", fontSize:10, letterSpacing:"4px", fontFamily:"monospace", marginBottom:8 }}>GET TOGETHER - INVITE</div>
+          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:"normal", color:"#F5E6D0", margin:"0 0 12px" }}>
             {data.event?.name}
           </h1>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-            {data.event?.date && <span style={{ color:T.textMid, fontSize:15 }}>📅 {formatDate(data.event.date)}</span>}
-            {data.event?.location && <span style={{ color:T.textMid, fontSize:15 }}>📍 {data.event.location}</span>}
+            {data.event?.date && <span style={{ color:"rgba(255,255,255,0.75)", fontSize:15 }}>Date: {formatDate(data.event.date)}</span>}
+            {data.event?.location && <span style={{ color:"rgba(255,255,255,0.75)", fontSize:15 }}>Location: {data.event.location}</span>}
             {data.event?.address && (
               <a href={`https://maps.google.com/?q=${encodeURIComponent(data.event.address)}`} target="_blank" rel="noreferrer"
-                style={{ color:T.textMuted, fontSize:13, textDecoration:"none" }}>
-                🗺 {data.event.address} ↗
+                style={{ color:"rgba(255,255,255,0.55)", fontSize:13, textDecoration:"none" }}>
+                Map: {data.event.address}
               </a>
             )}
             {data.event?.theme && (
-              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(200,75,49,0.15)", border:"1px solid rgba(200,75,49,0.3)", borderRadius:12, padding:"3px 12px", color:T.accent, fontSize:11, fontFamily:"monospace", marginTop:4 }}>
+              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", borderRadius:12, padding:"3px 12px", color:"#F5E6D0", fontSize:11, fontFamily:"monospace", marginTop:4 }}>
                 {data.event.theme}
               </span>
             )}
@@ -89,7 +92,7 @@ export default function RSVPView() {
         {guest && (
           <div style={{ marginBottom:28 }}>
             <h2 style={{ fontSize:22, fontWeight:"normal", color:T.text, margin:"0 0 4px" }}>
-              Hey {guest.isHost ? "👑 " : ""}{guest.name}! 👋
+              Hey {guest.isHost ? "(Host) " : ""}{guest.name}!
             </h2>
             <p style={{ color:T.textMuted, fontSize:14, fontStyle:"italic" }}>
               {guest.isHost ? "You're hosting this one. Let's make it legendary." : "You're invited. Are you pulling up?"}
@@ -106,28 +109,24 @@ export default function RSVPView() {
                 ...S.btn, flex:1, padding:"16px", fontSize:16,
                 background:"#2E9E6B", boxShadow:"0 4px 20px rgba(46,158,107,0.3)",
               }}>
-                ✅ I'm Going!
+                I'm Going!
               </button>
               <button onClick={() => handleRSVP('not_going')} style={{
                 ...S.ghostBtn, flex:1, padding:"16px", fontSize:16, textAlign:"center",
               }}>
-                ❌ Can't Make It
+                Can't Make It
               </button>
             </div>
           </div>
         ) : (
-          <div style={{ marginBottom:32, padding:"20px", background: rsvpStatus === 'going' ? "rgba(46,158,107,0.12)" : "rgba(255,255,255,0.04)", border:`1px solid ${rsvpStatus === 'going' ? "rgba(46,158,107,0.3)" : T.border}`, borderRadius:12, textAlign:"center" }}>
+          <div style={{ marginBottom:32, padding:"20px", background: rsvpStatus === 'going' ? "rgba(46,158,107,0.12)" : T.surface, border:`1px solid ${rsvpStatus === 'going' ? "rgba(46,158,107,0.3)" : T.border}`, borderRadius:12, textAlign:"center" }}>
             {rsvpStatus === 'going' ? (
               <>
-                <div style={{ fontSize:40, marginBottom:8 }}>🎉</div>
                 <p style={{ color:"#2E9E6B", fontSize:18, marginBottom:4 }}>You're going!</p>
                 <p style={{ color:T.textMuted, fontSize:13, fontStyle:"italic" }}>We'll see you there. Don't forget your assignments below.</p>
               </>
             ) : (
-              <>
-                <div style={{ fontSize:40, marginBottom:8 }}>😢</div>
-                <p style={{ color:T.textMuted, fontSize:18 }}>You'll be missed.</p>
-              </>
+              <p style={{ color:T.textMuted, fontSize:18 }}>You'll be missed.</p>
             )}
             <button onClick={() => setRsvpStatus(null)} style={{ ...S.ghostBtn, marginTop:14, padding:"8px 20px", fontSize:12 }}>
               Change Response
@@ -142,7 +141,6 @@ export default function RSVPView() {
             <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
               {myItems.map(item => (
                 <div key={item.id} style={{ background:"rgba(200,75,49,0.1)", border:"1px solid rgba(200,75,49,0.25)", borderRadius:10, padding:"12px 16px", display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ fontSize:18 }}>🍽</span>
                   <span style={{ color:T.text, fontSize:15 }}>{item.name}</span>
                   <span style={{ marginLeft:"auto", color:T.accent, fontSize:11, fontFamily:"monospace" }}>{item.category}</span>
                 </div>
@@ -158,7 +156,7 @@ export default function RSVPView() {
             <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
               {hosts.map(h => (
                 <div key={h.id} style={{ background:"rgba(200,75,49,0.12)", border:"1px solid rgba(200,75,49,0.3)", borderRadius:20, padding:"8px 16px", color:T.text, fontSize:14 }}>
-                  👑 {h.name}
+                  {h.name}
                 </div>
               ))}
             </div>
@@ -184,9 +182,9 @@ export default function RSVPView() {
         {/* Rules link */}
         <div style={{ textAlign:"center", paddingTop:20, borderTop:`1px solid ${T.border}` }}>
           <a href="/?page=rules" style={{ color:T.accent, fontSize:13, fontFamily:"monospace", letterSpacing:"2px", textDecoration:"none" }}>
-            📋 Read the Black Cookout Rules →
+            Read the Black Cookout Rules
           </a>
-          <p style={{ color:"#2A1808", fontSize:11, marginTop:6, fontStyle:"italic" }}>Know before you go.</p>
+          <p style={{ color:T.textMuted, fontSize:11, marginTop:6, fontStyle:"italic" }}>Know before you go.</p>
         </div>
 
       </div>
