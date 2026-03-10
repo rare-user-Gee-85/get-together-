@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { VIBES, uid } from '../data';
 import { S, T } from '../styles';
+
+const focusStyle = { transition: "box-shadow 0.15s" };
 
 export default function SetupScreen({ onComplete, onBack }) {
   const [step, setStep] = useState(0);
@@ -31,14 +33,15 @@ export default function SetupScreen({ onComplete, onBack }) {
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
           <div>
-            <label style={S.label}>Event Name *</label>
-            <input style={S.input} placeholder="e.g. The Diamond Family Cookout"
+            <label htmlFor="event-name" style={S.label}>Event Name *</label>
+            <input id="event-name" style={S.input} placeholder="e.g. The Diamond Family Cookout"
               autoFocus value={event.name}
               onChange={e => setEvent(ev => ({ ...ev, name: e.target.value }))}
-              onKeyDown={e => e.key === "Enter" && event.name.trim() && setStep(1)} />
+              onKeyDown={e => e.key === "Enter" && event.name.trim() && setStep(1)}
+              aria-required="true" />
           </div>
           <div>
-            <label style={S.label}>Vibe / Theme</label>
+            <label style={S.label}>Vibe / Theme <span style={{ color: T.textMuted, fontWeight: "normal" }}>(optional)</span></label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
               {VIBES.map(v => (
                 <button key={v} onClick={() => setEvent(ev => ({ ...ev, theme: ev.theme === v ? "" : v }))} style={{
@@ -60,18 +63,19 @@ export default function SetupScreen({ onComplete, onBack }) {
       content: (
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div>
-            <label style={S.label}>Date *</label>
-            <input type="date" style={S.input} value={event.date}
-              onChange={e => setEvent(ev => ({ ...ev, date: e.target.value }))} />
+            <label htmlFor="event-date" style={S.label}>Date *</label>
+            <input id="event-date" type="date" style={S.input} value={event.date}
+              onChange={e => setEvent(ev => ({ ...ev, date: e.target.value }))}
+              aria-required="true" />
           </div>
           <div>
-            <label style={S.label}>Location Name</label>
-            <input style={S.input} placeholder="Backyard, Park, Community Center..."
+            <label htmlFor="event-location" style={S.label}>Location Name</label>
+            <input id="event-location" style={S.input} placeholder="Backyard, Park, Community Center..."
               value={event.location} onChange={e => setEvent(ev => ({ ...ev, location: e.target.value }))} />
           </div>
           <div>
-            <label style={S.label}>Address <span style={{ color: "#3A2010", fontWeight: "normal" }}>(optional)</span></label>
-            <input style={S.input} placeholder="123 Main St, Kansas City, MO"
+            <label htmlFor="event-address" style={S.label}>Address <span style={{ color: "#3A2010", fontWeight: "normal" }}>(optional)</span></label>
+            <input id="event-address" style={S.input} placeholder="123 Main St, Kansas City, MO"
               value={event.address} onChange={e => setEvent(ev => ({ ...ev, address: e.target.value }))} />
           </div>
         </div>
@@ -88,6 +92,7 @@ export default function SetupScreen({ onComplete, onBack }) {
           </p>
           <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
             <input style={{ ...S.input, flex: 1, opacity: hosts.length >= 2 ? 0.4 : 1 }}
+              aria-label="Host name"
               placeholder={hosts.length >= 2 ? "Max 2 hosts reached" : "Host name"}
               value={newHost} onChange={e => setNewHost(e.target.value)}
               onKeyDown={e => e.key === "Enter" && addHost()}
@@ -103,8 +108,8 @@ export default function SetupScreen({ onComplete, onBack }) {
                 display: "flex", alignItems: "center", gap: 10,
                 color: T.text, fontSize: 14,
               }}>
-                👑 {h.name}
-                <span onClick={() => removeHost(h.id)} style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>×</span>
+                ð {h.name}
+                <span onClick={() => removeHost(h.id)} style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>Ã</span>
               </div>
             ))}
           </div>
@@ -121,7 +126,7 @@ export default function SetupScreen({ onComplete, onBack }) {
         <div>
           <label style={S.label}>Add Family & Friends</label>
           <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
-            <input style={{ ...S.input, flex: 1 }} placeholder="First name or nickname"
+            <input aria-label="Guest name" style={{ ...S.input, flex: 1 }} placeholder="First name or nickname"
               value={newGuest} onChange={e => setNewGuest(e.target.value)}
               onKeyDown={e => e.key === "Enter" && addGuest()} autoFocus />
             <button onClick={addGuest} style={S.btn}>Add</button>
@@ -134,15 +139,15 @@ export default function SetupScreen({ onComplete, onBack }) {
                   borderRadius: 20, padding: "7px 12px 7px 16px",
                   display: "flex", alignItems: "center", gap: 8, color: T.text, fontSize: 14,
                 }}>
-                  👤 {g.name}
+                  ð¤ {g.name}
                   <span onClick={() => removeGuest(g.id)}
-                    style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>×</span>
+                    style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>Ã</span>
                 </div>
               ))}
             </div>
           ) : (
             <p style={{ color: "#3A2010", fontSize: 13, fontStyle: "italic" }}>
-              Add people to assign items — more can be added later
+              Add people to assign items â more can be added later
             </p>
           )}
         </div>
@@ -155,9 +160,9 @@ export default function SetupScreen({ onComplete, onBack }) {
   return (
     <div style={{ minHeight: "100vh", background: T.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24 }}>
       <div style={{ width: "100%", maxWidth: 500 }}>
-        <div style={{ display: "flex", gap: 6, marginBottom: 48 }}>
+        <div role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={steps.length} aria-label={`Step ${step + 1} of ${steps.length}`} style={{ display: "flex", gap: 6, marginBottom: 48 }}>
           {steps.map((_, i) => (
-            <div key={i} onClick={() => i < step && setStep(i)} style={{
+            <div key={i} onClick={() => i < step && setStep(i)} role={i < step ? "button" : undefined} tabIndex={i < step ? 0 : undefined} aria-label={i < step ? `Go back to step ${i + 1}` : undefined} onKeyDown={e => { if (i < step && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setStep(i); }}} style={{
               flex: 1, height: 3, borderRadius: 2, cursor: i < step ? "pointer" : "default",
               background: i <= step ? T.accent : T.border, transition: "background 0.3s",
             }} />
@@ -174,12 +179,12 @@ export default function SetupScreen({ onComplete, onBack }) {
         {current.content}
 
         <div style={{ display: "flex", gap: 10, marginTop: 44 }}>
-          <button onClick={() => step === 0 ? onBack() : setStep(s => s - 1)} style={S.ghostBtn}>← Back</button>
+          <button onClick={() => step === 0 ? onBack() : setStep(s => s - 1)} style={S.ghostBtn}>â Back</button>
           <button
             onClick={() => step < steps.length - 1 ? setStep(s => s + 1) : onComplete({ event, hosts, guests: [...hosts, ...guests] })}
             disabled={!current.valid}
             style={{ ...S.btn, flex: 1, opacity: current.valid ? 1 : 0.35, cursor: current.valid ? "pointer" : "default", fontSize: step === steps.length - 1 ? 16 : 14 }}>
-            {step === steps.length - 1 ? "Let's Get It 🎉" : "Next →"}
+            {step === steps.length - 1 ? "Let's Get It ð" : "Next â"}
           </button>
         </div>
       </div>
