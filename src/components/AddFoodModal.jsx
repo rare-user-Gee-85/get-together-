@@ -4,13 +4,13 @@ import { S, T } from '../styles';
 
 // Dynamic placeholder per category
 const CUSTOM_PLACEHOLDERS = {
-  Meat: "e.g. Jerk Chicken Wings, Oxtail Stewâ¦",
-  Sides: "e.g. Deviled Eggs, Fried Plantainsâ¦",
-  Desserts: "e.g. Lemon Bars, Caramel Cakeâ¦",
-  Bread: "e.g. JalapeÃ±o Cornbread, Naanâ¦",
-  Condiments: "e.g. Chimichurri, Ranchâ¦",
-  Drinks: "e.g. Hennessy Punch, Agua Frescaâ¦",
-  Supplies: "e.g. Chafing Dishes, Serving Traysâ¦",
+  Meat: "e.g. Jerk Chicken Wings, Oxtail Stew...",
+  Sides: "e.g. Deviled Eggs, Fried Plantains...",
+  Desserts: "e.g. Lemon Bars, Caramel Cake...",
+  Bread: "e.g. Jalapeno Cornbread, Naan...",
+  Condiments: "e.g. Chimichurri, Ranch...",
+  Drinks: "e.g. Hennessy Punch, Agua Fresca...",
+  Supplies: "e.g. Chafing Dishes, Serving Trays...",
 };
 
 export default function AddFoodModal({ onAddMany, onClose }) {
@@ -25,7 +25,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
   const [genericSel, setGenericSel] = useState({ Desserts: {}, Bread: {}, Condiments: {}, Supplies: {} });
   const modalRef = useRef(null);
 
-  // ââ Escape key & focus trap âââââââââââââââââââââââââââââââââ
+  // Escape key & focus trap
   const handleSafeClose = useCallback(() => {
     const stagedCount = buildAllItems().length + (custom.trim() ? 1 : 0);
     if (stagedCount > 0) {
@@ -66,7 +66,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
   const color = CAT_COLORS[tab];
   const struct = FOOD_STRUCTURE[tab];
 
-  // ââ Build ALL staged items across all categories âââââââââââââ
+  // Build ALL staged items across all categories
   const buildAllItems = () => {
     const all = [];
     // Meat
@@ -93,7 +93,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
     return Object.keys(genericSel[cat] || {}).length;
   };
 
-  // ââ Meat handlers ââââââââââââââââââââââââââââââââââââââââââââ
+  // Meat handlers
   const toggleProtein = (p) => {
     setMeatSel(prev => {
       const next = { ...prev };
@@ -104,7 +104,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
   };
   const setProteinMethod = (p, m) => setMeatSel(prev => ({ ...prev, [p]: prev[p] === m ? "" : m }));
 
-  // ââ Styled handlers ââââââââââââââââââââââââââââââââââââââââââ
+  // Styled handlers
   const toggleStyled = (cat, item) => {
     setStyledSel(prev => {
       const catSel = { ...prev[cat] };
@@ -117,7 +117,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
     setStyledSel(prev => ({ ...prev, [cat]: { ...prev[cat], [item]: prev[cat][item] === style ? "" : style } }));
   };
 
-  // ââ Generic handlers âââââââââââââââââââââââââââââââââââââââââ
+  // Generic handlers
   const toggleGeneric = (cat, item) => {
     setGenericSel(prev => {
       const catSel = { ...prev[cat] };
@@ -134,17 +134,17 @@ export default function AddFoodModal({ onAddMany, onClose }) {
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-label="Add Food Items" style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.9)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:16 }} onClick={handleSafeClose}>
+    <div role="dialog" aria-modal="true" aria-label="Add Food Items" style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:16 }} onClick={handleSafeClose}>
       <div ref={modalRef} style={{ background:T.bg, border:`1px solid ${T.border}`, borderRadius:6, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
 
         {/* Header */}
         <div style={{ padding:"20px 24px 0", flexShrink:0 }}>
           <h3 style={{ margin:"0 0 4px", fontWeight:"normal", fontSize:20, color:T.text }}>Add Food Items</h3>
           <p style={{ margin:"0 0 12px", color:T.textMuted, fontSize:11, fontFamily:T.fontMono, letterSpacing:"1px" }}>
-            SELECT ACROSS ALL CATEGORIES â ADD EVERYTHING AT ONCE
+            SELECT ACROSS ALL CATEGORIES - ADD EVERYTHING AT ONCE
           </p>
           {/* Tabs */}
-          <div style={{ display:"flex", overflowX:"auto", borderBottom:"1px solid rgba(255,255,255,0.06)", gap:0 }}>
+          <div style={{ display:"flex", overflowX:"auto", borderBottom:"1px solid rgba(0,0,0,0.08)", gap:0 }}>
             {Object.keys(FOOD_STRUCTURE).map(cat => {
               const cnt = getCatCount(cat);
               return (
@@ -155,7 +155,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                   padding:"10px 12px", cursor:"pointer", fontSize:12,
                   whiteSpace:"nowrap", marginBottom:-1, position:"relative",
                 }}>
-                  {FOOD_STRUCTURE[cat].emoji} {cat}
+                  {cat}
                   {cnt > 0 && (
                     <span style={{ marginLeft:5, background:CAT_COLORS[cat], color:"#FFF", fontSize:9, borderRadius:4, padding:"1px 5px", fontFamily:T.fontMono }}>{cnt}</span>
                   )}
@@ -171,7 +171,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
           {/* MEAT */}
           {tab === "Meat" && (
             <div>
-              <label style={{ ...S.label, marginBottom:10 }}>Pick proteins â tap to expand cook method</label>
+              <label style={{ ...S.label, marginBottom:10 }}>Pick proteins - tap to expand cook method</label>
               <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
                 {struct.proteins.map(p => {
                   const selected = meatSel[p] !== undefined;
@@ -185,16 +185,16 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         borderRadius: expanded ? "8px 8px 0 0" : 8,
                         padding:"10px 14px", cursor:"pointer",
                         display:"flex", alignItems:"center", justifyContent:"space-between",
-                        color: selected ? T.text : T.textMid, fontSize:14, textAlign:"left",
+                        color: selected? T.text : T.textMid, fontSize:14, textAlign:"left",
                       }}>
-                        <span>{selected && <span style={{ color, marginRight:6 }}>â</span>}{p}</span>
+                        <span>{selected && <span style={{ color, marginRight:6 }}>&#10003;</span>}{p}</span>
                         <span style={{ display:"flex", alignItems:"center", gap:8 }}>
                           {method && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:11, fontFamily:T.fontMono, color:T.text }}>{method}</span>}
-                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "â²" : "â¼"}</span>}
+                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "^" : "v"}</span>}
                         </span>
                       </button>
                       {selected && expanded && (
-                        <div style={{ background:"rgba(255,255,255,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
+                        <div style={{ background:"rgba(0,0,0,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
                           <p style={{ ...S.label, margin:"0 0 8px" }}>Cook method (optional)</p>
                           <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
                             {struct.cookMethods.map(m => (
@@ -218,7 +218,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
           {/* SIDES / DRINKS */}
           {(tab === "Sides" || tab === "Drinks") && (
             <div>
-              <label style={{ ...S.label, marginBottom:10 }}>Pick items â tap to set style</label>
+              <label style={{ ...S.label, marginBottom:10 }}>Pick items - tap to set style</label>
               <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
                 {struct.items.map(item => {
                   const catSel = styledSel[tab] || {};
@@ -233,16 +233,16 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         borderRadius: expanded ? "8px 8px 0 0" : 8,
                         padding:"10px 14px", cursor:"pointer",
                         display:"flex", alignItems:"center", justifyContent:"space-between",
-                        color: selected ? T.text : T.textMid, fontSize:14, textAlign:"left",
+                        color: selected? T.text : T.textMid, fontSize:14, textAlign:"left",
                       }}>
-                        <span>{selected && <span style={{ color, marginRight:6 }}>â</span>}{item}</span>
+                        <span>{selected && <span style={{ color, marginRight:6 }}>&#10003;</span>}{item}</span>
                         <span style={{ display:"flex", alignItems:"center", gap:8 }}>
                           {style && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:11, fontFamily:T.fontMono, color:T.text }}>{style}</span>}
-                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "â²" : "â¼"}</span>}
+                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "^" : "v"}</span>}
                         </span>
                       </button>
                       {selected && expanded && struct.styles && (
-                        <div style={{ background:"rgba(255,255,255,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
+                        <div style={{ background:"rgba(0,0,0,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
                           <p style={{ ...S.label, margin:"0 0 8px" }}>Style (optional)</p>
                           <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
                             {struct.styles.map(m => (
@@ -273,11 +273,11 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                   return (
                     <button key={item} onClick={() => toggleGeneric(tab, item)} style={{
                       background: selected ? `${color}22` : T.surface,
-                      border:`1px solid ${selected ? color : T.border}`,
+                      border:`1px solid ${selected? color : T.border}`,
                       borderRadius:3, padding:"7px 14px",
                       color: selected ? T.text : T.textMid, fontSize:13, cursor:"pointer", transition:"all 0.15s",
                     }}>
-                      {selected && <span style={{ color, marginRight:4 }}>â</span>}{item}
+                      {selected && <span style={{ color, marginRight:4 }}>&#10003;</span>}{item}
                     </button>
                   );
                 })}
@@ -286,9 +286,9 @@ export default function AddFoodModal({ onAddMany, onClose }) {
           )}
 
           {/* Custom */}
-          <div style={{ marginTop:24, paddingTop:20, borderTop:"1px solid rgba(255,255,255,0.06)" }}>
+          <div style={{ marginTop:24, paddingTop:20, borderTop:"1px solid rgba(0,0,0,0.08)" }}>
             <label htmlFor="custom-food-input" style={S.label}>Add something not listed</label>
-            <input id="custom-food-input" style={S.input} placeholder={CUSTOM_PLACEHOLDERS[tab] || "e.g. Custom itemâ¦"}
+            <input id="custom-food-input" style={S.input} placeholder={CUSTOM_PLACEHOLDERS[tab] || "e.g. Custom item..."}
               value={custom} onChange={e => setCustom(e.target.value)}
               onKeyDown={e => { if (e.key === "Enter" && custom.trim()) { onAddMany([{ name: custom.trim(), category: tab }]); setCustom(""); } }}
             />
@@ -296,7 +296,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
         </div>
 
         {/* Footer */}
-        <div style={{ flexShrink:0, padding:"16px 24px", borderTop:"1px solid rgba(255,255,255,0.06)", background:T.bg }}>
+        <div style={{ flexShrink:0, padding:"16px 24px", borderTop:"1px solid rgba(0,0,0,0.08)", background:T.bg }}>
           {stagedItems.length > 0 && (
             <div style={{ marginBottom:12, display:"flex", flexWrap:"wrap", gap:6, maxHeight:80, overflowY:"auto" }}>
               {stagedItems.map((item, i) => (
@@ -306,11 +306,11 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                   borderRadius:12, padding:"3px 10px",
                   fontSize:11, color:T.text, fontFamily:T.fontMono,
                 }}>
-                  {FOOD_STRUCTURE[item.category]?.emoji} {item.name}
+                  {item.name}
                 </span>
               ))}
               {custom.trim() && (
-                <span style={{ background:T.border, border:"1px solid rgba(255,255,255,0.12)", borderRadius:12, padding:"3px 10px", fontSize:11, color:T.textMid, fontFamily:T.fontMono }}>
+                <span style={{ background:T.border, border:"1px solid rgba(0,0,0,0.12)", borderRadius:12, padding:"3px 10px", fontSize:11, color:T.textMid, fontFamily:T.fontMono }}>
                   + {custom.trim()}
                 </span>
               )}
@@ -319,7 +319,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
           <div style={{ display:"flex", gap:10 }}>
             <button onClick={handleSafeClose} style={{ ...S.ghostBtn, flexShrink:0 }}>Cancel</button>
             <button onClick={handleAddAll} disabled={totalCount === 0} style={{ ...S.btn, flex:1, opacity: totalCount > 0 ? 1 : 0.35, cursor: totalCount > 0 ? "pointer" : "default" }}>
-              Add {totalCount > 0 ? totalCount : ""} Item{totalCount !== 1 ? "s" : ""} to List â
+              Add {totalCount > 0 ? totalCount : ""} Item{totalCount !== 1 ? "s" : ""} to List
             </button>
           </div>
         </div>
@@ -329,7 +329,6 @@ export default function AddFoodModal({ onAddMany, onClose }) {
       {showDiscardConfirm && (
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:400, padding:16 }} onClick={() => setShowDiscardConfirm(false)}>
           <div role="alertdialog" aria-label="Discard selections?" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
-            <div style={{ fontSize:36, marginBottom:12 }}>ðï¸</div>
             <h3 style={{ fontWeight:"normal", fontSize:20, margin:"0 0 10px", color:T.text }}>Discard Selections?</h3>
             <p style={{ color:T.textMuted, fontSize:14, margin:"0 0 24px", lineHeight:1.7 }}>
               You have {totalCount} item{totalCount !== 1 ? "s" : ""} selected. Close without adding them?
