@@ -69,11 +69,11 @@ export const S = {
   },
 };
 
-// Geometric symbols per category
+// Category abbreviation labels
 export const CAT_SYMBOLS = {
-  Meat: "○", Sides: "△", Desserts: "□", Bread: "+", Condiments: "×",
-  Drinks: "◇", Supplies: "▷", Games: "○", Music: "△", Activities: "+",
-  Setup: "□", Cleanup: "×", Ice: "◇",
+  Meat: "M", Sides: "S", Desserts: "D", Bread: "B", Condiments: "C",
+  Drinks: "Dr", Supplies: "Su", Games: "G", Music: "Mu", Activities: "A",
+  Setup: "Se", Cleanup: "Cl", Ice: "I",
 };
 
 // Category colors (bold, print-like)
