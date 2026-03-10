@@ -75,8 +75,8 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
             </select>
 
             {/* Remove */}
-            <span onClick={() => onRemove(item.id)} style={{ color:"rgba(0,0,0,0.15)", cursor:"pointer", fontSize:18, flexShrink:0 }}
-              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(0,0,0,0.15)"}>×</span>
+            <button onClick={() => onRemove(item.id)} aria-label={`Remove ${item.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.15)", cursor:"pointer", fontSize:18, flexShrink:0, padding:0 }}
+              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(0,0,0,0.15)"}>×</button>
           </div>
         );
       })}
