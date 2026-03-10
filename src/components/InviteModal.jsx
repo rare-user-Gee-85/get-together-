@@ -31,19 +31,19 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
   };
 
   const buildMessage = (guestName, rsvpLink) => {
-    let msg = `Hey${guestName ? " " + guestName : ""}! ð¥\n\n`;
+    let msg = `Hey${guestName ? " " + guestName : ""}!\n\n`;
     msg += `You're invited to ${event.name || "the cookout"}!\n`;
     if (event.theme) msg += `Vibe: ${event.theme}\n`;
-    msg += `ð ${formatDate(event.date)}\n`;
-    if (event.location) msg += `ð ${event.location}\n`;
-    if (event.address) msg += `ðº ${event.address}\n`;
+    msg += `Date: ${formatDate(event.date)}\n`;
+    if (event.location) msg += `Location: ${event.location}\n`;
+    if (event.address) msg += `Address: ${event.address}\n`;
     msg += `\n`;
 
     const guestObj = guests.find(g => g.id === selectedGuest);
     const assigned = guestObj ? items.filter(i => i.assignedTo === guestObj.id) : [];
     if (assigned.length > 0) {
       msg += `Your assignment${assigned.length > 1 ? "s" : ""}:\n`;
-      assigned.forEach(i => msg += `  â¢ ${i.name}\n`);
+      assigned.forEach(i => msg += `  - ${i.name}\n`);
       msg += `\n`;
     }
 
@@ -51,7 +51,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
       msg += `RSVP here (tap to confirm you're going):\n${rsvpLink}\n\n`;
     }
 
-    msg += `See you there! ð©`;
+    msg += `See you there!`;
     return msg;
   };
 
@@ -71,7 +71,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
 
   const openSMS = () => window.open(`sms:?body=${encodeURIComponent(message)}`);
   const openEmail = () => {
-    const subject = encodeURIComponent(`You're invited â ${event.name}`);
+    const subject = encodeURIComponent(`You're invited - ${event.name}`);
     window.open(`mailto:?subject=${subject}&body=${encodeURIComponent(message)}`);
   };
 
@@ -98,11 +98,11 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
   };
 
   return (
-    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.92)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:16 }} onClick={onClose}>
-      <div ref={modalRef} role="dialog" aria-modal="true" aria-label={`Invite to ${event.name}`} style={{ background:"#1A0A00", border:`1px solid rgba(200,75,49,0.25)`, borderRadius:16, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
+    <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:16 }} onClick={onClose}>
+      <div ref={modalRef} role="dialog" aria-modal="true" aria-label={`Invite to ${event.name}`} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
 
-        <div style={{ padding:"22px 24px 16px", borderBottom:`1px solid rgba(255,255,255,0.06)`, flexShrink:0 }}>
-          <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"3px", color:T.accent, marginBottom:6, textTransform:"uppercase" }}>ð¨ Send Invites</div>
+        <div style={{ padding:"22px 24px 16px", borderBottom:"1px solid rgba(0,0,0,0.08)", flexShrink:0 }}>
+          <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"3px", color:T.accent, marginBottom:6, textTransform:"uppercase" }}>Send Invites</div>
           <h3 style={{ fontWeight:"normal", fontSize:22, color:T.text, margin:0 }}>Invite to {event.name}</h3>
         </div>
 
@@ -112,27 +112,27 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           <div>
             <label style={S.label}>Select a guest to personalize</label>
             <select value={selectedGuest} onChange={e => setSelectedGuest(e.target.value)} style={{ ...S.input, cursor:"pointer" }}>
-              <option value="">Choose a guestâ¦</option>
+              <option value="">Choose a guest...</option>
               {guests.map(g => (
-                <option key={g.id} value={g.id}>{g.isHost ? `ð ${g.name}` : `ð¤ ${g.name}`}</option>
+                <option key={g.id} value={g.id}>{g.isHost ? `Host: ${g.name}` : g.name}</option>
               ))}
             </select>
           </div>
 
-          {/* RSVP Link â shown when guest selected */}
+          {/* RSVP Link - shown when guest selected */}
           {guest && rsvpLink && (
             <div style={{ background:"rgba(46,158,107,0.1)", border:"1px solid rgba(46,158,107,0.3)", borderRadius:10, padding:"16px" }}>
               <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"2px", color:"#2E9E6B", marginBottom:8, textTransform:"uppercase" }}>
-                ð Personal RSVP Link for {guest.name}
+                Personal RSVP Link for {guest.name}
               </div>
               <p style={{ fontSize:13, color:T.textMid, marginBottom:12, lineHeight:1.6, fontStyle:"italic" }}>
                 When {guest.name} taps this link, they'll see the event details, their assignments, and a one-tap "I'm Going" button.
               </p>
-              <div style={{ background:"rgba(0,0,0,0.3)", borderRadius:6, padding:"10px 12px", fontFamily:"monospace", fontSize:11, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
-                {rsvpLink.length > 80 ? rsvpLink.slice(0, 80) + "â¦" : rsvpLink}
+              <div style={{ background:"rgba(0,0,0,0.05)", borderRadius:6, padding:"10px 12px", fontFamily:"monospace", fontSize:11, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
+                {rsvpLink.length > 80 ? rsvpLink.slice(0, 80) + "..." : rsvpLink}
               </div>
               <button onClick={copyRSVPLink} style={{ ...S.btn, width:"100%", padding:"10px", fontSize:12, background: linkCopied ? "#2E9E6B" : T.accent }}>
-                {linkCopied ? "â Link Copied!" : "ð Copy RSVP Link"}
+                {linkCopied ? "Link Copied!" : "Copy RSVP Link"}
               </button>
             </div>
           )}
@@ -141,7 +141,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           <div>
             <label style={S.label}>Full Message Preview</label>
             <div style={{
-              background:"rgba(255,255,255,0.04)", border:`1px solid rgba(255,255,255,0.08)`,
+              background:T.surface, border:"1px solid rgba(0,0,0,0.08)",
               borderRadius:8, padding:16, fontSize:13, color:T.textMid,
               whiteSpace:"pre-wrap", lineHeight:1.7, maxHeight:180, overflowY:"auto", fontFamily:"monospace",
             }}>
@@ -152,19 +152,19 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           {/* Cookout list */}
           <div style={{ background:T.accentDim, border:`1px solid ${T.accentBorder}`, borderRadius:10, padding:"16px" }}>
             <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"2px", color:T.accent, marginBottom:8, textTransform:"uppercase" }}>
-              ð Cookout List + Day Of Checklist
+              Cookout List + Day Of Checklist
             </div>
             <div style={{ display:"flex", gap:8 }}>
               <button onClick={previewList} style={{ ...S.ghostBtn, flex:1, padding:"10px", fontSize:12, color:T.textMid, textAlign:"center" }}>
-                ð Preview
+                Preview
               </button>
               <button onClick={downloadList} style={{ ...S.btn, flex:2, padding:"10px", fontSize:12, background: listDownloaded ? "#2E9E6B" : T.accent }}>
-                {listDownloaded ? "â Downloaded!" : "â¬ Download List"}
+                {listDownloaded ? "Downloaded!" : "Download List"}
               </button>
             </div>
             {listDownloaded && (
               <p style={{ fontSize:11, color:"#2E9E6B", fontFamily:"monospace", marginTop:8 }}>
-                Saved to Downloads â attach to email or share directly.
+                Saved to Downloads - attach to email or share directly.
               </p>
             )}
           </div>
@@ -174,15 +174,15 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
             <label style={S.label}>Send via</label>
             <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
               {[
-                { icon:"ð", label:"Copy Message", fn: copyMessage },
-                { icon:"ð¬", label:"Send via Text Message", fn: openSMS },
-                { icon:"âï¸", label:"Send via Email", fn: openEmail },
-              ].map(({ icon, label, fn }) => (
+                { label:"Copy Message", fn: copyMessage },
+                { label:"Send via Text Message", fn: openSMS },
+                { label:"Send via Email", fn: openEmail },
+              ].map(({ label, fn }) => (
                 <button key={label} onClick={fn} style={{
                   ...S.ghostBtn, textAlign:"left", padding:"12px 16px", fontSize:14, color:T.textMid,
                   display:"flex", alignItems:"center", gap:10,
                 }}>
-                  {icon} {label}
+                  {label}
                 </button>
               ))}
             </div>
@@ -191,12 +191,12 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           {/* Rules link */}
           <div style={{ textAlign:"center", paddingTop:8 }}>
             <a href="/?page=rules" target="_blank" rel="noreferrer" style={{ color:T.textMuted, fontSize:12, fontFamily:"monospace", letterSpacing:"1px", textDecoration:"none" }}>
-              ð Share the Black Cookout Rules â
+              Share the Black Cookout Rules
             </a>
           </div>
         </div>
 
-        <div style={{ padding:"16px 24px", borderTop:`1px solid rgba(255,255,255,0.06)`, flexShrink:0 }}>
+        <div style={{ padding:"16px 24px", borderTop:"1px solid rgba(0,0,0,0.08)", flexShrink:0 }}>
           <button onClick={onClose} style={{ ...S.ghostBtn, width:"100%" }}>Close</button>
         </div>
       </div>
