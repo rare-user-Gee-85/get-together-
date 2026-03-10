@@ -45,7 +45,7 @@ export default function SetupScreen({ onComplete, onBack }) {
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
               {VIBES.map(v => (
                 <button key={v} onClick={() => setEvent(ev => ({ ...ev, theme: ev.theme === v ? "" : v }))} style={{
-                  background: event.theme === v ? T.accentDim : "rgba(255,255,255,0.04)",
+                  background: event.theme === v ? T.accentDim : "rgba(0,0,0,0.03)",
                   border: `1px solid ${event.theme === v ? T.accent : T.border}`,
                   borderRadius: 20, padding: "7px 15px", cursor: "pointer",
                   color: event.theme === v ? T.text : T.textMuted, fontSize: 13,
@@ -74,7 +74,7 @@ export default function SetupScreen({ onComplete, onBack }) {
               value={event.location} onChange={e => setEvent(ev => ({ ...ev, location: e.target.value }))} />
           </div>
           <div>
-            <label htmlFor="event-address" style={S.label}>Address <span style={{ color: "#3A2010", fontWeight: "normal" }}>(optional)</span></label>
+            <label htmlFor="event-address" style={S.label}>Address <span style={{ color: T.textMuted, fontWeight: "normal" }}>(optional)</span></label>
             <input id="event-address" style={S.input} placeholder="123 Main St, Kansas City, MO"
               value={event.address} onChange={e => setEvent(ev => ({ ...ev, address: e.target.value }))} />
           </div>
@@ -86,7 +86,7 @@ export default function SetupScreen({ onComplete, onBack }) {
       valid: true,
       content: (
         <div>
-          <label style={S.label}>Who's hosting? <span style={{ color: "#3A2010" }}>(max 2)</span></label>
+          <label style={S.label}>Who's hosting? <span style={{ color: T.textMuted }}>(max 2)</span></label>
           <p style={{ color: T.textMuted, fontSize: 13, fontStyle: "italic", margin: "0 0 16px", lineHeight: 1.6 }}>
             Hosts appear at the top of every list and can cover entire categories with one tap.
           </p>
@@ -108,13 +108,13 @@ export default function SetupScreen({ onComplete, onBack }) {
                 display: "flex", alignItems: "center", gap: 10,
                 color: T.text, fontSize: 14,
               }}>
-                ð {h.name}
-                <span onClick={() => removeHost(h.id)} style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>Ã</span>
+                Host: {h.name}
+                <span onClick={() => removeHost(h.id)} style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>&times;</span>
               </div>
             ))}
           </div>
           {hosts.length === 0 && (
-            <p style={{ color: "#2A1808", fontSize: 12, fontFamily: "monospace", marginTop: 12 }}>Skip if not needed</p>
+            <p style={{ color: T.textMuted, fontSize: 12, fontFamily: "monospace", marginTop: 12 }}>Skip if not needed</p>
           )}
         </div>
       ),
@@ -139,15 +139,15 @@ export default function SetupScreen({ onComplete, onBack }) {
                   borderRadius: 20, padding: "7px 12px 7px 16px",
                   display: "flex", alignItems: "center", gap: 8, color: T.text, fontSize: 14,
                 }}>
-                  ð¤ {g.name}
+                  {g.name}
                   <span onClick={() => removeGuest(g.id)}
-                    style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>Ã</span>
+                    style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>&times;</span>
                 </div>
               ))}
             </div>
           ) : (
-            <p style={{ color: "#3A2010", fontSize: 13, fontStyle: "italic" }}>
-              Add people to assign items â more can be added later
+            <p style={{ color: T.textMuted, fontSize: 13, fontStyle: "italic" }}>
+              Add people to assign items - more can be added later
             </p>
           )}
         </div>
@@ -179,12 +179,12 @@ export default function SetupScreen({ onComplete, onBack }) {
         {current.content}
 
         <div style={{ display: "flex", gap: 10, marginTop: 44 }}>
-          <button onClick={() => step === 0 ? onBack() : setStep(s => s - 1)} style={S.ghostBtn}>â Back</button>
+          <button onClick={() => step === 0 ? onBack() : setStep(s => s - 1)} style={S.ghostBtn}>Back</button>
           <button
             onClick={() => step < steps.length - 1 ? setStep(s => s + 1) : onComplete({ event, hosts, guests: [...hosts, ...guests] })}
             disabled={!current.valid}
             style={{ ...S.btn, flex: 1, opacity: current.valid ? 1 : 0.35, cursor: current.valid ? "pointer" : "default", fontSize: step === steps.length - 1 ? 16 : 14 }}>
-            {step === steps.length - 1 ? "Let's Get It ð" : "Next â"}
+            {step === steps.length - 1 ? "Let's Get It" : "Next"}
           </button>
         </div>
       </div>
