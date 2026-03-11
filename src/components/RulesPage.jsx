@@ -88,7 +88,7 @@ export default function RulesPage() {
             GET TOGETHER
           </div>
           <h1 style={{ fontSize:"clamp(36px,8vw,64px)", fontWeight:"normal", color:"#F5E6D0", lineHeight:1.1, margin:"0 0 16px" }}>
-            The Black Cookout Rules
+            Cookout Rules
           </h1>
           <p style={{ color:"rgba(255,255,255,0.75)", fontSize:16, lineHeight:1.8, fontStyle:"italic", margin:"0 0 24px" }}>
             Unwritten. Understood. Non-negotiable.<br />
