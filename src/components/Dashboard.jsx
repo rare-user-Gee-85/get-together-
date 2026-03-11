@@ -193,19 +193,19 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
 
   // COLOR BLOCK HEADER (shared)
   const ColorBlockHeader = ({ compact }) => (
-    <header style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px" }}>
+    <header style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px", textAlign:"center" }}>
       <Stripes />
       <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"Georgia,serif", fontWeight:"bold", color:"rgba(0,0,0,0.07)", lineHeight:1, userSelect:"none" }}>
         {activeCatSymbol}
       </div>
-      <div style={{ position:"relative", display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+      <div style={{ position:"relative" }}>
         <div>
           <div style={{ fontFamily:"monospace", fontSize:9, letterSpacing:"3px", color:"rgba(255,255,255,0.6)", marginBottom:compact?4:6 }}>GET TOGETHER</div>
           <div style={{ fontFamily:"Georgia,serif", color:"#F5E6D0", fontSize: compact?20:24, fontWeight:"normal" }}>{event.name}</div>
           {!compact && event.date && <div style={{ color:"rgba(255,255,255,0.6)", fontSize:12, fontFamily:"monospace", marginTop:2 }}>{formatDate(event.date)}{event.location?` - ${event.location}`:""}</div>}
           {!compact && event.address && <div style={{ color:"rgba(255,255,255,0.5)", fontSize:11, fontFamily:"monospace", marginTop:1 }}>{event.address}</div>}
         </div>
-        <div style={{ display:"flex", gap:6 }}>
+        <div style={{ display:"flex", gap:6, justifyContent:"center", marginTop:compact?4:8 }}>
           <button onClick={() => setShowGuestPanel(true)} aria-label={`Guest list - ${allPeople.length} people`} title="Guest List" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer", fontFamily:"monospace" }}>
             {allPeople.length} guests
           </button>
