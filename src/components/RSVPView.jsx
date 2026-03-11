@@ -182,7 +182,7 @@ export default function RSVPView() {
         {/* Rules link */}
         <div style={{ textAlign:"center", paddingTop:20, borderTop:`1px solid ${T.border}` }}>
           <a href="/?page=rules" style={{ color:T.accent, fontSize:13, fontFamily:"monospace", letterSpacing:"2px", textDecoration:"none" }}>
-            Read the Black Cookout Rules
+            Read the Cookout Rules
           </a>
           <p style={{ color:T.textMuted, fontSize:11, marginTop:6, fontStyle:"italic" }}>Know before you go.</p>
         </div>
