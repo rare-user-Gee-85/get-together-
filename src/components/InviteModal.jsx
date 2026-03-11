@@ -191,7 +191,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           {/* Rules link */}
           <div style={{ textAlign:"center", paddingTop:8 }}>
             <a href="/?page=rules" target="_blank" rel="noreferrer" style={{ color:T.textMuted, fontSize:12, fontFamily:"monospace", letterSpacing:"1px", textDecoration:"none" }}>
-              Share the Black Cookout Rules
+              Share the Cookout Rules
             </a>
           </div>
         </div>
