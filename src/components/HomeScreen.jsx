@@ -1,10 +1,44 @@
 import { T } from '../styles';
 
+// Flat-style SVG icons for feature cards
+const AssignIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill={T.accent} opacity="0.15"/>
+    <path d="M8 11h8M8 15h5" stroke={T.accent} strokeWidth="1.8" strokeLinecap="round"/>
+    <path d="M16 6l-3 3-1.5-1.5" stroke={T.accent} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+    <rect x="5" y="4" width="14" height="16" rx="2" stroke={T.accent} strokeWidth="1.5" fill="none"/>
+  </svg>
+);
+
+const InviteIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill={T.accent} opacity="0.15"/>
+    <rect x="3" y="6" width="18" height="13" rx="2" stroke={T.accent} strokeWidth="1.5" fill="none"/>
+    <path d="M3 8l9 5.5L21 8" stroke={T.accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    <circle cx="18" cy="7" r="3.5" fill={T.accent} opacity="0.9"/>
+    <path d="M18 5.5v3M16.5 7h3" stroke="#fff" strokeWidth="1.2" strokeLinecap="round"/>
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill={T.accent} opacity="0.15"/>
+    <circle cx="12" cy="12" r="7.5" stroke={T.accent} strokeWidth="1.5" fill="none"/>
+    <path d="M8.5 12.5l2.5 2.5 5-5" stroke={T.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const FEATURE_ICONS = [
+  { icon: <AssignIcon />, label: "ASSIGN FOOD" },
+  { icon: <InviteIcon />, label: "INVITE GUESTS" },
+  { icon: <CheckIcon />, label: "CHECK OFF" },
+];
+
 export default function HomeScreen({ onStart, onRules }) {
   return (
     <div style={{ minHeight:"100vh", background:T.bg, display:"flex", flexDirection:"column" }}>
-      {/* Bold color block header */}
-      <div style={{ background:T.accent, position:"relative", overflow:"hidden", padding:"48px 24px 36px" }}>
+      {/* Bold color block header â centered */}
+      <div style={{ background:T.accent, position:"relative", overflow:"hidden", padding:"48px 24px 36px", textAlign:"center" }}>
         {/* Stripe texture */}
         {[...Array(10)].map((_,i) => (
           <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.08)", top: 28 + i*18 }} />
@@ -35,11 +69,11 @@ export default function HomeScreen({ onStart, onRules }) {
           COOKOUT RULES
         </button>
 
-        {/* Feature icons */}
+        {/* Feature icons with SVG flaticons */}
         <div style={{ display:"flex", justifyContent:"center", gap:"clamp(24px,8vw,52px)", marginTop:52 }}>
-          {[["Assign","ASSIGN FOOD"],["Invite","INVITE GUESTS"],["Check","CHECK OFF"]].map(([icon,label]) => (
+          {FEATURE_ICONS.map(({ icon, label }) => (
             <div key={label} style={{ textAlign:"center" }}>
-              <div style={{ background:T.surface, borderRadius:12, width:52, height:52, display:"flex", alignItems:"center", justifyContent:"center", fontSize:13, fontWeight:"bold", color:T.accent, margin:"0 auto 8px", boxShadow:"0 2px 8px rgba(0,0,0,0.08)", fontFamily:"monospace" }}>{icon}</div>
+              <div style={{ background:T.surface, borderRadius:14, width:60, height:60, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 8px", boxShadow:"0 2px 10px rgba(0,0,0,0.08)" }}>{icon}</div>
               <div style={{ fontFamily:"monospace", fontSize:9, letterSpacing:"1.5px", color:T.textMuted }}>{label}</div>
             </div>
           ))}
