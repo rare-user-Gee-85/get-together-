@@ -158,12 +158,12 @@ export default function SetupScreen({ onComplete, onBack }) {
   const current = steps[step];
 
   return (
-    <div style={{ minHeight: "100vh", background: T.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24 }}>
+    <div style={{ minHeight: "100vh", background: T.bg, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start", padding: "clamp(32px,10vh,96px) 24px 24px" }}>
       <div style={{ width: "100%", maxWidth: 500 }}>
         <div role="progressbar" aria-valuenow={step + 1} aria-valuemin={1} aria-valuemax={steps.length} aria-label={`Step ${step + 1} of ${steps.length}`} style={{ display: "flex", gap: 6, marginBottom: 48 }}>
           {steps.map((_, i) => (
             <div key={i} onClick={() => i < step && setStep(i)} role={i < step ? "button" : undefined} tabIndex={i < step ? 0 : undefined} aria-label={i < step ? `Go back to step ${i + 1}` : undefined} onKeyDown={e => { if (i < step && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); setStep(i); }}} style={{
-              flex: 1, height: 3, borderRadius: 2, cursor: i < step ? "pointer" : "default",
+              flex: 1, height: 6, borderRadius: 3, cursor: i < step ? "pointer" : "default",
               background: i <= step ? T.accent : T.border, transition: "background 0.3s",
             }} />
           ))}
@@ -183,8 +183,8 @@ export default function SetupScreen({ onComplete, onBack }) {
           <button
             onClick={() => step < steps.length - 1 ? setStep(s => s + 1) : onComplete({ event, hosts, guests: [...hosts, ...guests] })}
             disabled={!current.valid}
-            style={{ ...S.btn, flex: 1, opacity: current.valid ? 1 : 0.35, cursor: current.valid ? "pointer" : "default", fontSize: step === steps.length - 1 ? 16 : 14 }}>
-            {step === steps.length - 1 ? "Let's Get It" : "Next"}
+            style={{ ...S.btn, flex: 1, ...(current.valid ? {} : { background: T.surface2, color: T.textMuted, border: `1px dashed ${T.borderHover}` }), cursor: current.valid ? "pointer" : "not-allowed", fontSize: step === steps.length - 1 ? 16 : 14 }}>
+            {step === steps.length - 1 ? "Let's Get It" : current.valid ? "Next" : (step === 0 ? "Name it to continue" : "Pick a date to continue")}
           </button>
         </div>
       </div>
