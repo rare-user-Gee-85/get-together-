@@ -139,8 +139,8 @@ export default function AddFoodModal({ onAddMany, onClose }) {
 
         {/* Header */}
         <div style={{ padding:"20px 24px 0", flexShrink:0 }}>
-          <h3 style={{ margin:"0 0 4px", fontWeight:"normal", fontSize:20, color:T.text }}>Add Food Items</h3>
-          <p style={{ margin:"0 0 12px", color:T.textMuted, fontSize:11, fontFamily:T.fontMono, letterSpacing:"1px" }}>
+          <h3 style={{ margin:"0 0 4px", fontWeight:600, fontSize:20, color:T.text }}>Add Food Items</h3>
+          <p style={{ margin:"0 0 12px", color:T.textMuted, fontSize:12, fontFamily:T.fontMono, letterSpacing:"1px" }}>
             SELECT ACROSS ALL CATEGORIES - ADD EVERYTHING AT ONCE
           </p>
           {/* Tabs */}
@@ -152,12 +152,12 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                   background:"none", border:"none",
                   borderBottom:`2px solid ${tab === cat ? CAT_COLORS[cat] : "transparent"}`,
                   color: tab === cat ? T.text : T.textMuted,
-                  padding:"10px 12px", cursor:"pointer", fontSize:12,
+                  padding:"10px 12px", cursor:"pointer", fontSize:13,
                   whiteSpace:"nowrap", marginBottom:-1, position:"relative",
                 }}>
                   {cat}
                   {cnt > 0 && (
-                    <span style={{ marginLeft:5, background:CAT_COLORS[cat], color:"#FFF", fontSize:9, borderRadius:4, padding:"1px 5px", fontFamily:T.fontMono }}>{cnt}</span>
+                    <span style={{ marginLeft:5, background:CAT_COLORS[cat], color:"#FFF", fontSize:12, borderRadius:4, padding:"1px 5px", fontFamily:T.fontMono }}>{cnt}</span>
                   )}
                 </button>
               );
@@ -185,12 +185,12 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         borderRadius: expanded ? "8px 8px 0 0" : 8,
                         padding:"10px 14px", cursor:"pointer",
                         display:"flex", alignItems:"center", justifyContent:"space-between",
-                        color: selected? T.text : T.textMid, fontSize:14, textAlign:"left",
+                        color: selected? T.text : T.textMid, fontSize:15, textAlign:"left",
                       }}>
                         <span>{selected && <span style={{ color, marginRight:6 }}>&#10003;</span>}{p}</span>
                         <span style={{ display:"flex", alignItems:"center", gap:8 }}>
-                          {method && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:11, fontFamily:T.fontMono, color:T.text }}>{method}</span>}
-                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "^" : "v"}</span>}
+                          {method && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:12, fontFamily:T.fontMono, color:T.text }}>{method}</span>}
+                          {selected && <span style={{ color:T.textMuted, fontSize:12 }}>{expanded ? "^" : "v"}</span>}
                         </span>
                       </button>
                       {selected && expanded && (
@@ -202,7 +202,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                                 background: method===m ? `${color}33` : T.surface,
                                 border:`1px solid ${method===m ? color : T.border}`,
                                 borderRadius:6, padding:"4px 11px",
-                                color: method===m ? T.text : T.textMuted, fontSize:12, cursor:"pointer",
+                                color: method===m ? T.text : T.textMuted, fontSize:13, cursor:"pointer",
                               }}>{m}</button>
                             ))}
                           </div>
@@ -233,12 +233,12 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         borderRadius: expanded ? "8px 8px 0 0" : 8,
                         padding:"10px 14px", cursor:"pointer",
                         display:"flex", alignItems:"center", justifyContent:"space-between",
-                        color: selected? T.text : T.textMid, fontSize:14, textAlign:"left",
+                        color: selected? T.text : T.textMid, fontSize:15, textAlign:"left",
                       }}>
                         <span>{selected && <span style={{ color, marginRight:6 }}>&#10003;</span>}{item}</span>
                         <span style={{ display:"flex", alignItems:"center", gap:8 }}>
-                          {style && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:11, fontFamily:T.fontMono, color:T.text }}>{style}</span>}
-                          {selected && <span style={{ color:T.textMuted, fontSize:11 }}>{expanded ? "^" : "v"}</span>}
+                          {style && <span style={{ background:`${color}33`, border:`1px solid ${color}66`, borderRadius:3, padding:"2px 8px", fontSize:12, fontFamily:T.fontMono, color:T.text }}>{style}</span>}
+                          {selected && <span style={{ color:T.textMuted, fontSize:12 }}>{expanded ? "^" : "v"}</span>}
                         </span>
                       </button>
                       {selected && expanded && struct.styles && (
@@ -250,7 +250,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                                 background: style===m ? `${color}33` : T.surface,
                                 border:`1px solid ${style===m ? color : T.border}`,
                                 borderRadius:6, padding:"4px 11px",
-                                color: style===m ? T.text : T.textMuted, fontSize:12, cursor:"pointer",
+                                color: style===m ? T.text : T.textMuted, fontSize:13, cursor:"pointer",
                               }}>{m}</button>
                             ))}
                           </div>
@@ -275,7 +275,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                       background: selected ? `${color}22` : T.surface,
                       border:`1px solid ${selected? color : T.border}`,
                       borderRadius:3, padding:"7px 14px",
-                      color: selected ? T.text : T.textMid, fontSize:13, cursor:"pointer", transition:"all 0.15s",
+                      color: selected ? T.text : T.textMid, fontSize:14, cursor:"pointer", transition:"all 0.15s",
                     }}>
                       {selected && <span style={{ color, marginRight:4 }}>&#10003;</span>}{item}
                     </button>
@@ -304,13 +304,13 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                   background:`${CAT_COLORS[item.category]}22`,
                   border:`1px solid ${CAT_COLORS[item.category]}44`,
                   borderRadius:12, padding:"3px 10px",
-                  fontSize:11, color:T.text, fontFamily:T.fontMono,
+                  fontSize:12, color:T.text, fontFamily:T.fontMono,
                 }}>
                   {item.name}
                 </span>
               ))}
               {custom.trim() && (
-                <span style={{ background:T.border, border:"1px solid rgba(0,0,0,0.12)", borderRadius:12, padding:"3px 10px", fontSize:11, color:T.textMid, fontFamily:T.fontMono }}>
+                <span style={{ background:T.border, border:"1px solid rgba(0,0,0,0.12)", borderRadius:12, padding:"3px 10px", fontSize:12, color:T.textMid, fontFamily:T.fontMono }}>
                   + {custom.trim()}
                 </span>
               )}
@@ -329,8 +329,8 @@ export default function AddFoodModal({ onAddMany, onClose }) {
       {showDiscardConfirm && (
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:400, padding:16 }} onClick={() => setShowDiscardConfirm(false)}>
           <div role="alertdialog" aria-label="Discard selections?" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
-            <h3 style={{ fontWeight:"normal", fontSize:20, margin:"0 0 10px", color:T.text }}>Discard Selections?</h3>
-            <p style={{ color:T.textMuted, fontSize:14, margin:"0 0 24px", lineHeight:1.7 }}>
+            <h3 style={{ fontWeight:600, fontSize:20, margin:"0 0 10px", color:T.text }}>Discard Selections?</h3>
+            <p style={{ color:T.textMuted, fontSize:15, margin:"0 0 24px", lineHeight:1.7 }}>
               You have {totalCount} item{totalCount !== 1 ? "s" : ""} selected. Close without adding them?
             </p>
             <div style={{ display:"flex", gap:10 }}>

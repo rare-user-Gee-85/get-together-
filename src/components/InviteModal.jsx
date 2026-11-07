@@ -102,8 +102,8 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
       <div ref={modalRef} role="dialog" aria-modal="true" aria-label={`Invite to ${event.name}`} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
 
         <div style={{ padding:"22px 24px 16px", borderBottom:"1px solid rgba(0,0,0,0.08)", flexShrink:0 }}>
-          <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"3px", color:T.accent, marginBottom:6, textTransform:"uppercase" }}>Send Invites</div>
-          <h3 style={{ fontWeight:"normal", fontSize:22, color:T.text, margin:0 }}>Invite to {event.name}</h3>
+          <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.5px", color:T.accent, marginBottom:6, textTransform:"uppercase" }}>Send Invites</div>
+          <h3 style={{ fontWeight:600, fontSize:22, color:T.text, margin:0 }}>Invite to {event.name}</h3>
         </div>
 
         <div style={{ overflowY:"auto", flex:1, padding:"20px 24px", display:"flex", flexDirection:"column", gap:20 }}>
@@ -122,16 +122,16 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           {/* RSVP Link - shown when guest selected */}
           {guest && rsvpLink && (
             <div style={{ background:"rgba(46,158,107,0.1)", border:"1px solid rgba(46,158,107,0.3)", borderRadius:10, padding:"16px" }}>
-              <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"2px", color:"#2E9E6B", marginBottom:8, textTransform:"uppercase" }}>
+              <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.2px", color:"#2E9E6B", marginBottom:8, textTransform:"uppercase" }}>
                 Personal RSVP Link for {guest.name}
               </div>
-              <p style={{ fontSize:13, color:T.textMid, marginBottom:12, lineHeight:1.6, fontStyle:"italic" }}>
+              <p style={{ fontSize:14, color:T.textMid, marginBottom:12, lineHeight:1.6, fontStyle:"italic" }}>
                 When {guest.name} taps this link, they'll see the event details, their assignments, and a one-tap "I'm Going" button.
               </p>
-              <div style={{ background:"rgba(0,0,0,0.05)", borderRadius:6, padding:"10px 12px", fontFamily:"monospace", fontSize:11, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
+              <div style={{ background:"rgba(0,0,0,0.05)", borderRadius:6, padding:"10px 12px", fontFamily:"var(--font-body)", fontSize:12, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
                 {rsvpLink.length > 80 ? rsvpLink.slice(0, 80) + "..." : rsvpLink}
               </div>
-              <button onClick={copyRSVPLink} style={{ ...S.btn, width:"100%", padding:"10px", fontSize:12, background: linkCopied ? "#2E9E6B" : T.accent }}>
+              <button onClick={copyRSVPLink} style={{ ...S.btn, width:"100%", padding:"10px", fontSize:13, background: linkCopied ? "#2E9E6B" : T.accent }}>
                 {linkCopied ? "Link Copied!" : "Copy RSVP Link"}
               </button>
             </div>
@@ -142,8 +142,8 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
             <label style={S.label}>Full Message Preview</label>
             <div style={{
               background:T.surface, border:"1px solid rgba(0,0,0,0.08)",
-              borderRadius:8, padding:16, fontSize:13, color:T.textMid,
-              whiteSpace:"pre-wrap", lineHeight:1.7, maxHeight:180, overflowY:"auto", fontFamily:"monospace",
+              borderRadius:8, padding:16, fontSize:14, color:T.textMid,
+              whiteSpace:"pre-wrap", lineHeight:1.7, maxHeight:180, overflowY:"auto", fontFamily:"var(--font-body)",
             }}>
               {message}
             </div>
@@ -151,19 +151,19 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
 
           {/* Cookout list */}
           <div style={{ background:T.accentDim, border:`1px solid ${T.accentBorder}`, borderRadius:10, padding:"16px" }}>
-            <div style={{ fontFamily:"monospace", fontSize:10, letterSpacing:"2px", color:T.accent, marginBottom:8, textTransform:"uppercase" }}>
+            <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.2px", color:T.accent, marginBottom:8, textTransform:"uppercase" }}>
               Cookout List + Day Of Checklist
             </div>
             <div style={{ display:"flex", gap:8 }}>
-              <button onClick={previewList} style={{ ...S.ghostBtn, flex:1, padding:"10px", fontSize:12, color:T.textMid, textAlign:"center" }}>
+              <button onClick={previewList} style={{ ...S.ghostBtn, flex:1, padding:"10px", fontSize:13, color:T.textMid, textAlign:"center" }}>
                 Preview
               </button>
-              <button onClick={downloadList} style={{ ...S.btn, flex:2, padding:"10px", fontSize:12, background: listDownloaded ? "#2E9E6B" : T.accent }}>
+              <button onClick={downloadList} style={{ ...S.btn, flex:2, padding:"10px", fontSize:13, background: listDownloaded ? "#2E9E6B" : T.accent }}>
                 {listDownloaded ? "Downloaded!" : "Download List"}
               </button>
             </div>
             {listDownloaded && (
-              <p style={{ fontSize:11, color:"#2E9E6B", fontFamily:"monospace", marginTop:8 }}>
+              <p style={{ fontSize:12, color:"#2E9E6B", fontFamily:"var(--font-body)", marginTop:8 }}>
                 Saved to Downloads - attach to email or share directly.
               </p>
             )}
@@ -179,7 +179,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
                 { label:"Send via Email", fn: openEmail },
               ].map(({ label, fn }) => (
                 <button key={label} onClick={fn} style={{
-                  ...S.ghostBtn, textAlign:"left", padding:"12px 16px", fontSize:14, color:T.textMid,
+                  ...S.ghostBtn, textAlign:"left", padding:"12px 16px", fontSize:15, color:T.textMid,
                   display:"flex", alignItems:"center", gap:10,
                 }}>
                   {label}
@@ -190,7 +190,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
 
           {/* Rules link */}
           <div style={{ textAlign:"center", paddingTop:8 }}>
-            <a href="/?page=rules" target="_blank" rel="noreferrer" style={{ color:T.textMuted, fontSize:12, fontFamily:"monospace", letterSpacing:"1px", textDecoration:"none" }}>
+            <a href="/?page=rules" target="_blank" rel="noreferrer" style={{ color:T.textMuted, fontSize:13, fontFamily:"var(--font-body)", letterSpacing:"1px", textDecoration:"none" }}>
               Share the Cookout Rules
             </a>
           </div>

@@ -9,7 +9,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
   if (!items.length) return (
     <div style={{ textAlign:"center", padding:"52px 24px", border:"2px dashed rgba(0,0,0,0.1)", borderRadius:12 }}>
       <div style={{ fontSize:36, marginBottom:12, color:"rgba(0,0,0,0.15)", fontWeight:"bold" }}>{symbol}</div>
-      <p style={{ fontFamily:"monospace", fontSize:11, letterSpacing:"2px", color:"rgba(0,0,0,0.3)" }}>NO {category.toUpperCase()} ITEMS YET</p>
+      <p style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.2px", color:"#6B4A32" }}>NO {category.toUpperCase()} ITEMS YET</p>
     </div>
   );
 
@@ -25,9 +25,9 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
               <button key={h.id} onClick={() => onHostCoverCategory(h.id)} style={{
                 background: allCovered ? color : "rgba(0,0,0,0.05)",
                 border: `1px solid ${allCovered ? color : "rgba(0,0,0,0.12)"}`,
-                borderRadius:16, padding:"6px 14px", fontSize:11,
+                borderRadius:16, padding:"6px 14px", fontSize:12,
                 color: allCovered ? "#fff" : T.textMid,
-                cursor:"pointer", fontFamily:"monospace", letterSpacing:"1px",
+                cursor:"pointer", fontFamily:"var(--font-body)", letterSpacing:"1px",
               }}>
                 {h.name} covers {category}
               </button>
@@ -54,12 +54,12 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
               border: `2px solid ${item.brought ? color : "rgba(0,0,0,0.2)"}`,
               display:"flex", alignItems:"center", justifyContent:"center",
             }}>
-              {item.brought && <span style={{ color:"#fff", fontSize:13, lineHeight:1 }}>&#10003;</span>}
+              {item.brought && <span style={{ color:"#fff", fontSize:14, lineHeight:1 }}>&#10003;</span>}
             </div>
 
             {/* Name */}
             <div style={{ flex:1 }}>
-              <span style={{ fontSize:15, color: item.brought ? T.textMuted : T.text, textDecoration: item.brought ? "line-through" : "none", fontFamily:"Georgia,serif" }}>
+              <span style={{ fontSize:16, color: item.brought ? T.textMuted : T.text, textDecoration: item.brought ? "line-through" : "none", fontFamily:"var(--font-body)" }}>
                 {item.name}
               </span>
             </div>
@@ -67,8 +67,8 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
             {/* Assign */}
             <select value={item.assignedTo || ""} onChange={e => onAssign(item.id, e.target.value)} style={{
               background:T.bg, border:"1px solid rgba(0,0,0,0.1)", borderRadius:16,
-              padding:"4px 10px", fontSize:11, color: assignedPerson ? color : "rgba(0,0,0,0.3)",
-              cursor:"pointer", fontFamily:"monospace", maxWidth:120,
+              padding:"4px 10px", fontSize:12, color: assignedPerson ? color : "rgba(0,0,0,0.3)",
+              cursor:"pointer", fontFamily:"var(--font-body)", maxWidth:120,
             }}>
               <option value="">Unassigned</option>
               {allPeople.map(g => <option key={g.id} value={g.id}>{g.isHost ? "(H) " : ""}{g.name}</option>)}

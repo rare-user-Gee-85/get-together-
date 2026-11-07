@@ -53,17 +53,17 @@ export default function HomeScreen({ onStart, onRules }) {
         {[...Array(10)].map((_, i) => (
           <div key={i} aria-hidden="true" style={{ position: "absolute", left: 0, right: 0, height: 1, background: "rgba(0,0,0,0.08)", top: 28 + i * 18 }} />
         ))}
-        <div aria-hidden="true" style={{ position: "absolute", right: -10, top: -10, fontSize: 180, fontFamily: "Georgia,serif", fontWeight: "bold", color: "rgba(0,0,0,0.08)", lineHeight: 1, userSelect: "none" }}>G</div>
+        <div aria-hidden="true" style={{ position: "absolute", right: -10, top: -10, fontSize: 180, fontFamily: "var(--font-body)", fontWeight: "bold", color: "rgba(0,0,0,0.08)", lineHeight: 1, userSelect: "none" }}>G</div>
         <div style={{ position: "relative", maxWidth: 640, margin: "0 auto" }}>
-          <div style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "4px", color: "rgba(255,255,255,0.75)", marginBottom: 14 }}>COOKOUT COMMAND STATION</div>
-          <h1 style={{ fontFamily: "Georgia,serif", fontSize: "clamp(40px,11vw,64px)", fontWeight: "normal", color: "#F5E6D0", margin: "0 0 14px", lineHeight: 1.05 }}>Get Together</h1>
-          <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "clamp(20px,5vw,26px)", color: "#F5E6D0", margin: "0 0 32px", lineHeight: 1.3 }}>
+          <div style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", color:"#F5E6D0", marginBottom: 14 }}>COOKOUT COMMAND STATION</div>
+          <h1 style={{ fontFamily: "var(--font-body)", fontSize: "clamp(40px,11vw,64px)", fontWeight: 600, color: "#F5E6D0", margin: "0 0 14px", lineHeight: 1.05 }}>Get Together</h1>
+          <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", fontSize: "clamp(20px,5vw,26px)", color: "#F5E6D0", margin: "0 0 32px", lineHeight: 1.3 }}>
             Plan it. Bring it. Grill it.
           </p>
-          <button onClick={onStart} style={{ background: T.text, color: T.bg, border: "none", borderRadius: 10, padding: "18px 0", width: "100%", maxWidth: 360, fontFamily: "Georgia,serif", fontSize: 17, cursor: "pointer", letterSpacing: "1px", boxShadow: "0 6px 0 rgba(0,0,0,0.25)" }}>
+          <button onClick={onStart} style={{ background: T.text, color: T.bg, border: "none", borderRadius: 10, padding: "18px 0", width: "100%", maxWidth: 360, fontFamily: "var(--font-body)", fontSize: 17, cursor: "pointer", letterSpacing: "1px", boxShadow: "0 6px 0 rgba(0,0,0,0.25)" }}>
             START PLANNING
           </button>
-          <div style={{ marginTop: 16, fontFamily: "monospace", fontSize: 12, letterSpacing: "1.5px", color: "#F5E6D0" }}>
+          <div style={{ marginTop: 16, fontFamily: "var(--font-body)", fontSize: 13, letterSpacing: "1.5px", color: "#F5E6D0" }}>
             FREE &middot; NO ACCOUNT NEEDED
           </div>
         </div>
@@ -72,16 +72,16 @@ export default function HomeScreen({ onStart, onRules }) {
       <main style={{ flex: 1, padding: "44px 24px 28px", display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
         {/* How it works */}
         <section aria-labelledby="how" style={{ width: "100%", maxWidth: 720 }}>
-          <h2 id="how" style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "4px", fontWeight: "normal", color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>HOW IT WORKS</h2>
+          <h2 id="how" style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", fontWeight: 600, color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>HOW IT WORKS</h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
             {STEPS.map(({ icon, title, text }, i) => (
               <div key={title} style={{ background: T.surface, borderRadius: 14, padding: "20px 18px", border: `1px solid ${T.border}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
                   {icon}
-                  <span style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "2px", color: T.accent }}>STEP {i + 1}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "1.2px", color: T.accent }}>STEP {i + 1}</span>
                 </div>
-                <div style={{ fontFamily: "Georgia,serif", fontSize: 18, color: T.text, marginBottom: 6 }}>{title}</div>
-                <div style={{ fontFamily: "Georgia,serif", fontSize: 14, color: T.textMid, lineHeight: 1.55 }}>{text}</div>
+                <div style={{ fontFamily: "var(--font-body)", fontSize: 18, color: T.text, marginBottom: 6 }}>{title}</div>
+                <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: T.textMid, lineHeight: 1.55 }}>{text}</div>
               </div>
             ))}
           </div>
@@ -89,32 +89,32 @@ export default function HomeScreen({ onStart, onRules }) {
 
         {/* Sample preview */}
         <section aria-labelledby="preview" style={{ width: "100%", maxWidth: 420 }}>
-          <h2 id="preview" style={{ fontFamily: "monospace", fontSize: 11, letterSpacing: "4px", fontWeight: "normal", color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>A PEEK AT COOKOUT DAY</h2>
+          <h2 id="preview" style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", fontWeight: 600, color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>A PEEK AT COOKOUT DAY</h2>
           <div style={{ background: T.surface, borderRadius: 14, border: `1px solid ${T.border}`, padding: 20 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-              <span style={{ fontFamily: "Georgia,serif", fontSize: 18, color: T.text }}>Family Reunion Cookout</span>
-              <span style={{ fontFamily: "monospace", fontSize: 12, color: T.accent }}>{pct}% READY</span>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: 18, color: T.text }}>Family Reunion Cookout</span>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: T.accent }}>{pct}% READY</span>
             </div>
             <div style={{ height: 8, borderRadius: 4, background: T.surface2, overflow: "hidden", marginBottom: 16 }}>
               <div style={{ width: `${pct}%`, height: "100%", background: T.green }} />
             </div>
             {SAMPLE.map(({ item, who, done }) => (
               <div key={item} style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 0", borderTop: `1px solid ${T.border}` }}>
-                <span aria-hidden="true" style={{ width: 20, height: 20, borderRadius: "50%", border: `2px solid ${done ? T.green : T.borderHover}`, background: done ? T.green : "transparent", color: "#fff", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }}>{done ? "✓" : ""}</span>
-                <span style={{ flex: 1, fontFamily: "Georgia,serif", fontSize: 15, color: T.text, textDecoration: done ? "line-through" : "none", opacity: done ? 0.6 : 1 }}>{item}</span>
-                <span style={{ fontFamily: "monospace", fontSize: 12, color: T.textMuted }}>{who}</span>
+                <span aria-hidden="true" style={{ width: 20, height: 20, borderRadius: "50%", border: `2px solid ${done ? T.green : T.borderHover}`, background: done ? T.green : "transparent", color: "#fff", fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center" }}>{done ? "✓" : ""}</span>
+                <span style={{ flex: 1, fontFamily: "var(--font-body)", fontSize: 16, color: T.text, textDecoration: done ? "line-through" : "none", opacity: done ? 0.6 : 1 }}>{item}</span>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: T.textMuted }}>{who}</span>
               </div>
             ))}
           </div>
-          <div style={{ textAlign: "center", marginTop: 12, fontFamily: "monospace", fontSize: 11, color: T.textMuted }}>Sample data</div>
+          <div style={{ textAlign: "center", marginTop: 12, fontFamily: "var(--font-body)", fontSize: 12, color: T.textMuted }}>Sample data</div>
         </section>
 
-        <button onClick={onRules} style={{ background: "none", border: `1px solid ${T.borderHover}`, borderRadius: 24, color: T.textMid, fontSize: 12, fontFamily: "monospace", letterSpacing: "2px", cursor: "pointer", padding: "10px 24px" }}>
+        <button onClick={onRules} style={{ background: "none", border: `1px solid ${T.borderHover}`, borderRadius: 24, color: T.textMid, fontSize: 13, fontFamily: "var(--font-body)", letterSpacing: "1.2px", cursor: "pointer", padding: "10px 24px" }}>
           COOKOUT RULES
         </button>
       </main>
 
-      <footer style={{ textAlign: "center", padding: "20px 24px 32px", fontFamily: "monospace", fontSize: 12, letterSpacing: "1px", color: T.textMid }}>
+      <footer style={{ textAlign: "center", padding: "20px 24px 32px", fontFamily: "var(--font-body)", fontSize: 13, letterSpacing: "1px", color: T.textMid }}>
         A <a href="https://rare-user.com" style={{ color: T.accent }}>RARE UX Design</a> tool
       </footer>
     </div>

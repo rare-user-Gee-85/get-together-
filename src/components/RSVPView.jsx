@@ -35,15 +35,15 @@ export default function RSVPView() {
   if (error) return (
     <div style={{ minHeight:"100vh", background:T.bg, display:"flex", alignItems:"center", justifyContent:"center", padding:24 }}>
       <div style={{ textAlign:"center" }}>
-        <div style={{ fontSize:28, marginBottom:16, color:T.textMuted, fontFamily:"monospace" }}>?</div>
-        <p style={{ color:T.textMuted, fontFamily:"monospace" }}>Invalid invite link</p>
+        <div style={{ fontSize:28, marginBottom:16, color:T.textMuted, fontFamily:"var(--font-body)" }}>?</div>
+        <p style={{ color:T.textMuted, fontFamily:"var(--font-body)" }}>Invalid invite link</p>
       </div>
     </div>
   );
 
   if (!data) return (
     <div style={{ minHeight:"100vh", background:T.bg, display:"flex", alignItems:"center", justifyContent:"center" }}>
-      <div style={{ color:T.textMuted, fontFamily:"monospace", fontSize:12, letterSpacing:"3px" }}>LOADING...</div>
+      <div style={{ color:T.textMuted, fontFamily:"var(--font-body)", fontSize:13, letterSpacing:"1.5px" }}>LOADING...</div>
     </div>
   );
 
@@ -56,7 +56,7 @@ export default function RSVPView() {
   }).length;
 
   return (
-    <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"Georgia, serif" }}>
+    <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"var(--font-body)" }}>
 
       {/* Header */}
       <div style={{ background:T.accent, borderBottom:"1px solid rgba(0,0,0,0.1)", padding:"28px 24px", position:"relative", overflow:"hidden" }}>
@@ -64,21 +64,21 @@ export default function RSVPView() {
           <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.07)", top: i*16 }} />
         ))}
         <div style={{ maxWidth:560, margin:"0 auto", position:"relative" }}>
-          <div style={{ color:"rgba(255,255,255,0.6)", fontSize:10, letterSpacing:"4px", fontFamily:"monospace", marginBottom:8 }}>GET TOGETHER - INVITE</div>
-          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:"normal", color:"#F5E6D0", margin:"0 0 12px" }}>
+          <div style={{ color:"#F5E6D0", fontSize:12, letterSpacing:"2px", fontFamily:"var(--font-body)", marginBottom:8 }}>GET TOGETHER - INVITE</div>
+          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:600, color:"#F5E6D0", margin:"0 0 12px" }}>
             {data.event?.name}
           </h1>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-            {data.event?.date && <span style={{ color:"rgba(255,255,255,0.75)", fontSize:15 }}>Date: {formatDate(data.event.date)}</span>}
-            {data.event?.location && <span style={{ color:"rgba(255,255,255,0.75)", fontSize:15 }}>Location: {data.event.location}</span>}
+            {data.event?.date && <span style={{ color:"#F5E6D0", fontSize:16 }}>Date: {formatDate(data.event.date)}</span>}
+            {data.event?.location && <span style={{ color:"#F5E6D0", fontSize:16 }}>Location: {data.event.location}</span>}
             {data.event?.address && (
               <a href={`https://maps.google.com/?q=${encodeURIComponent(data.event.address)}`} target="_blank" rel="noreferrer"
-                style={{ color:"rgba(255,255,255,0.55)", fontSize:13, textDecoration:"none" }}>
+                style={{ color:"#F5E6D0", fontSize:14, textDecoration:"none" }}>
                 Map: {data.event.address}
               </a>
             )}
             {data.event?.theme && (
-              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", borderRadius:12, padding:"3px 12px", color:"#F5E6D0", fontSize:11, fontFamily:"monospace", marginTop:4 }}>
+              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", borderRadius:12, padding:"3px 12px", color:"#F5E6D0", fontSize:12, fontFamily:"var(--font-body)", marginTop:4 }}>
                 {data.event.theme}
               </span>
             )}
@@ -91,10 +91,10 @@ export default function RSVPView() {
         {/* Personal greeting */}
         {guest && (
           <div style={{ marginBottom:28 }}>
-            <h2 style={{ fontSize:22, fontWeight:"normal", color:T.text, margin:"0 0 4px" }}>
+            <h2 style={{ fontSize:22, fontWeight:600, color:T.text, margin:"0 0 4px" }}>
               Hey {guest.isHost ? "(Host) " : ""}{guest.name}!
             </h2>
-            <p style={{ color:T.textMuted, fontSize:14, fontStyle:"italic" }}>
+            <p style={{ color:T.textMuted, fontSize:15, fontStyle:"italic" }}>
               {guest.isHost ? "You're hosting this one. Let's make it legendary." : "You're invited. Are you pulling up?"}
             </p>
           </div>
@@ -123,12 +123,12 @@ export default function RSVPView() {
             {rsvpStatus === 'going' ? (
               <>
                 <p style={{ color:"#2E9E6B", fontSize:18, marginBottom:4 }}>You're going!</p>
-                <p style={{ color:T.textMuted, fontSize:13, fontStyle:"italic" }}>We'll see you there. Don't forget your assignments below.</p>
+                <p style={{ color:T.textMuted, fontSize:14, fontStyle:"italic" }}>We'll see you there. Don't forget your assignments below.</p>
               </>
             ) : (
               <p style={{ color:T.textMuted, fontSize:18 }}>You'll be missed.</p>
             )}
-            <button onClick={() => setRsvpStatus(null)} style={{ ...S.ghostBtn, marginTop:14, padding:"8px 20px", fontSize:12 }}>
+            <button onClick={() => setRsvpStatus(null)} style={{ ...S.ghostBtn, marginTop:14, padding:"8px 20px", fontSize:13 }}>
               Change Response
             </button>
           </div>
@@ -141,8 +141,8 @@ export default function RSVPView() {
             <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
               {myItems.map(item => (
                 <div key={item.id} style={{ background:"rgba(200,75,49,0.1)", border:"1px solid rgba(200,75,49,0.25)", borderRadius:10, padding:"12px 16px", display:"flex", alignItems:"center", gap:10 }}>
-                  <span style={{ color:T.text, fontSize:15 }}>{item.name}</span>
-                  <span style={{ marginLeft:"auto", color:T.accent, fontSize:11, fontFamily:"monospace" }}>{item.category}</span>
+                  <span style={{ color:T.text, fontSize:16 }}>{item.name}</span>
+                  <span style={{ marginLeft:"auto", color:T.accent, fontSize:12, fontFamily:"var(--font-body)" }}>{item.category}</span>
                 </div>
               ))}
             </div>
@@ -155,7 +155,7 @@ export default function RSVPView() {
             <p style={{ ...S.label, marginBottom:12 }}>Hosted by</p>
             <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
               {hosts.map(h => (
-                <div key={h.id} style={{ background:"rgba(200,75,49,0.12)", border:"1px solid rgba(200,75,49,0.3)", borderRadius:20, padding:"8px 16px", color:T.text, fontSize:14 }}>
+                <div key={h.id} style={{ background:"rgba(200,75,49,0.12)", border:"1px solid rgba(200,75,49,0.3)", borderRadius:20, padding:"8px 16px", color:T.text, fontSize:15 }}>
                   {h.name}
                 </div>
               ))}
@@ -167,24 +167,24 @@ export default function RSVPView() {
         <div style={{ marginBottom:28, padding:"16px", background:T.surface, border:`1px solid ${T.border}`, borderRadius:10, display:"flex", gap:24 }}>
           <div style={{ textAlign:"center" }}>
             <div style={{ fontSize:24, color:T.accent, fontWeight:"bold" }}>{allGuests.length}</div>
-            <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", letterSpacing:"1px" }}>INVITED</div>
+            <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", letterSpacing:"1px" }}>INVITED</div>
           </div>
           <div style={{ textAlign:"center" }}>
             <div style={{ fontSize:24, color:"#2E9E6B", fontWeight:"bold" }}>{goingCount}</div>
-            <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", letterSpacing:"1px" }}>GOING</div>
+            <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", letterSpacing:"1px" }}>GOING</div>
           </div>
           <div style={{ textAlign:"center" }}>
             <div style={{ fontSize:24, color:T.textMid, fontWeight:"bold" }}>{data.items?.length || 0}</div>
-            <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", letterSpacing:"1px" }}>ITEMS PLANNED</div>
+            <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", letterSpacing:"1px" }}>ITEMS PLANNED</div>
           </div>
         </div>
 
         {/* Rules link */}
         <div style={{ textAlign:"center", paddingTop:20, borderTop:`1px solid ${T.border}` }}>
-          <a href="/?page=rules" style={{ color:T.accent, fontSize:13, fontFamily:"monospace", letterSpacing:"2px", textDecoration:"none" }}>
+          <a href="/?page=rules" style={{ color:T.accent, fontSize:14, fontFamily:"var(--font-body)", letterSpacing:"1.2px", textDecoration:"none" }}>
             Read the Cookout Rules
           </a>
-          <p style={{ color:T.textMuted, fontSize:11, marginTop:6, fontStyle:"italic" }}>Know before you go.</p>
+          <p style={{ color:T.textMuted, fontSize:12, marginTop:6, fontStyle:"italic" }}>Know before you go.</p>
         </div>
 
       </div>

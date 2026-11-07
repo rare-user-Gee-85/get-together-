@@ -150,8 +150,8 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     {showResetConfirm && (
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:500, padding:16 }} onClick={() => setShowResetConfirm(false)}>
         <div role="alertdialog" aria-label="Confirm reset" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
-          <h3 style={{ fontWeight:"normal", fontSize:20, margin:"0 0 10px", color:T.text }}>Start Over?</h3>
-          <p style={{ color:T.textMuted, fontSize:14, margin:"0 0 24px", lineHeight:1.7 }}>This clears all event data. Save your PDF first if needed.</p>
+          <h3 style={{ fontWeight:600, fontSize:20, margin:"0 0 10px", color:T.text }}>Start Over?</h3>
+          <p style={{ color:T.textMuted, fontSize:15, margin:"0 0 24px", lineHeight:1.7 }}>This clears all event data. Save your PDF first if needed.</p>
           <div style={{ display:"flex", gap:10 }}>
             <button onClick={() => setShowResetConfirm(false)} style={{ ...S.ghostBtn, flex:1 }}>Cancel</button>
             <button onClick={onReset} style={{ ...S.btn, flex:1, background:"#8B1A0A" }}>Clear All</button>
@@ -164,24 +164,24 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
         <div onClick={() => setShowGuestPanel(false)} style={{ flex:1, background:"rgba(0,0,0,0.5)" }} />
         <div role="dialog" aria-label="Guest list" style={{ background:T.bg, borderRadius:"16px 16px 0 0", padding:24, maxHeight:"72vh", overflowY:"auto", borderTop:"1px solid rgba(0,0,0,0.1)" }}>
           <div style={{ width:36, height:4, background:"rgba(0,0,0,0.15)", borderRadius:2, margin:"0 auto 20px" }} />
-          <h3 style={{ fontWeight:"normal", fontSize:20, color:T.text, margin:"0 0 16px" }}>Guest List</h3>
+          <h3 style={{ fontWeight:600, fontSize:20, color:T.text, margin:"0 0 16px" }}>Guest List</h3>
           {hosts.map(h => (
             <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.2)", borderRadius:8, padding:"10px 14px", marginBottom:6 }}>
-              <div style={{ fontSize:14, color:T.text }}>Host: {h.name}</div>
-              <div style={{ fontSize:11, color:T.accent, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
+              <div style={{ fontSize:15, color:T.text }}>Host: {h.name}</div>
+              <div style={{ fontSize:12, color:T.accent, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
             </div>
           ))}
           {guests.map(g => (
             <div key={g.id} style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"10px 14px", marginBottom:6, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
-                <div style={{ fontSize:14, color:T.text }}>{g.name}</div>
-                <div style={{ fontSize:11, color:T.textMuted, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
+                <div style={{ fontSize:15, color:T.text }}>{g.name}</div>
+                <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
               </div>
-              <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:22, padding:0 }}>&times;</button>
+              <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#6B4A32", cursor:"pointer", fontSize:22, padding:0 }}>&times;</button>
             </div>
           ))}
           <div style={{ display:"flex", gap:8, marginTop:12 }}>
-            <input aria-label="Add a guest" style={{ ...S.input, flex:1, fontSize:14 }} placeholder="Add guest..." value={newGuest}
+            <input aria-label="Add a guest" style={{ ...S.input, flex:1, fontSize:15 }} placeholder="Add guest..." value={newGuest}
               onChange={e => setNewGuest(e.target.value)} onKeyDown={e => e.key==="Enter" && addGuest()} />
             <button onClick={addGuest} aria-label="Add guest" style={{ ...S.btn, padding:"12px 16px" }}>+</button>
           </div>
@@ -195,21 +195,21 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
   const ColorBlockHeader = ({ compact }) => (
     <header style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px", textAlign:"center" }}>
       <Stripes />
-      <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"Georgia,serif", fontWeight:"bold", color:"rgba(0,0,0,0.07)", lineHeight:1, userSelect:"none" }}>
+      <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"var(--font-body)", fontWeight:"bold", color:"rgba(0,0,0,0.07)", lineHeight:1, userSelect:"none" }}>
         {activeCatSymbol}
       </div>
       <div style={{ position:"relative" }}>
         <div>
-          <div style={{ fontFamily:"monospace", fontSize:9, letterSpacing:"3px", color:"rgba(255,255,255,0.6)", marginBottom:compact?4:6 }}>GET TOGETHER</div>
-          <div style={{ fontFamily:"Georgia,serif", color:"#F5E6D0", fontSize: compact?20:24, fontWeight:"normal" }}>{event.name}</div>
-          {!compact && event.date && <div style={{ color:"rgba(255,255,255,0.6)", fontSize:12, fontFamily:"monospace", marginTop:2 }}>{formatDate(event.date)}{event.location?` - ${event.location}`:""}</div>}
-          {!compact && event.address && <div style={{ color:"rgba(255,255,255,0.5)", fontSize:11, fontFamily:"monospace", marginTop:1 }}>{event.address}</div>}
+          <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.5px", color:"#F5E6D0", marginBottom:compact?4:6 }}>GET TOGETHER</div>
+          <div style={{ fontFamily:"var(--font-body)", color:"#F5E6D0", fontSize: compact?20:24, fontWeight:600 }}>{event.name}</div>
+          {!compact && event.date && <div style={{ color:"#F5E6D0", fontSize:13, fontFamily:"var(--font-body)", marginTop:2 }}>{formatDate(event.date)}{event.location?` - ${event.location}`:""}</div>}
+          {!compact && event.address && <div style={{ color:"#F5E6D0", fontSize:12, fontFamily:"var(--font-body)", marginTop:1 }}>{event.address}</div>}
         </div>
         <div style={{ display:"flex", gap:6, justifyContent:"center", marginTop:compact?4:8 }}>
-          <button onClick={() => setShowGuestPanel(true)} aria-label={`Guest list - ${allPeople.length} people`} title="Guest List" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer", fontFamily:"monospace" }}>
+          <button onClick={() => setShowGuestPanel(true)} aria-label={`Guest list - ${allPeople.length} people`} title="Guest List" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:13, cursor:"pointer", fontFamily:"var(--font-body)" }}>
             {allPeople.length} guests
           </button>
-          <button onClick={() => setShowInvite(true)} aria-label="Send invites" title="Send Invites" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:12, cursor:"pointer", fontFamily:"monospace" }}>Invite</button>
+          <button onClick={() => setShowInvite(true)} aria-label="Send invites" title="Send Invites" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:13, cursor:"pointer", fontFamily:"var(--font-body)" }}>Invite</button>
         </div>
       </div>
       {!compact && items.length > 0 && (
@@ -218,14 +218,14 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
             {[{l:"GUESTS",v:allPeople.length},{l:"ITEMS",v:items.length},{l:"CLAIMED",v:assignedCount},{l:"NEEDED",v:items.length-assignedCount}].map(s => (
               <div key={s.l} style={{ textAlign:"center" }}>
                 <div style={{ fontSize:18, fontWeight:"bold", color:"#F5E6D0" }}>{s.v}</div>
-                <div style={{ fontSize:8, color:"rgba(255,255,255,0.5)", fontFamily:"monospace", letterSpacing:"1px" }}>{s.l}</div>
+                <div style={{ fontSize:12, color:"#F5E6D0", fontFamily:"var(--font-body)", letterSpacing:"1px" }}>{s.l}</div>
               </div>
             ))}
           </div>
           <div style={{ height:3, background:"rgba(0,0,0,0.2)", borderRadius:2 }}>
             <div style={{ height:"100%", width:`${progress}%`, background:"rgba(255,255,255,0.6)", borderRadius:2, transition:"width 0.5s" }} />
           </div>
-          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:9, color:"rgba(255,255,255,0.5)", fontFamily:"monospace" }}>SAVED</div>}
+          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:12, color:"#F5E6D0", fontFamily:"var(--font-body)" }}>SAVED</div>}
         </div>
       )}
     </header>
@@ -244,12 +244,12 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
               flexShrink:0, padding:"12px 14px", background:"none", border:"none",
               borderBottom: isActive ? `3px solid ${color}` : "3px solid transparent",
               color: isActive ? color : T.textMuted,
-              cursor:"pointer", fontSize:12, fontFamily:"monospace",
+              cursor:"pointer", fontSize:13, fontFamily:"var(--font-body)",
               letterSpacing:"1px", display:"flex", alignItems:"center", gap:5,
               whiteSpace:"nowrap",
             }}>
               {t}
-              {count > 0 && <span style={{ background:color, color:"#fff", fontSize:9, borderRadius:10, padding:"1px 5px" }}>{count}</span>}
+              {count > 0 && <span style={{ background:color, color:"#fff", fontSize:12, borderRadius:10, padding:"1px 5px" }}>{count}</span>}
             </button>
           );
         })}
@@ -261,10 +261,10 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
   const QuickAdd = () => {
     if (isFood) return (
       <div style={{ padding:"10px 16px", background:T.surface, borderBottom:"1px solid rgba(0,0,0,0.06)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-        <span style={{ fontSize:12, fontFamily:"monospace", color:T.textMuted, letterSpacing:"1px" }}>
+        <span style={{ fontSize:13, fontFamily:"var(--font-body)", color:T.textMuted, letterSpacing:"1px" }}>
           {CAT_SYMBOLS[activeTab]} {activeTab.toUpperCase()}
         </span>
-        <button onClick={() => setShowAddFood(true)} style={{ ...S.btn, padding:"8px 16px", fontSize:12, background:activeCatColor }}>
+        <button onClick={() => setShowAddFood(true)} style={{ ...S.btn, padding:"8px 16px", fontSize:13, background:activeCatColor }}>
           + Add Item
         </button>
       </div>
@@ -276,7 +276,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           {suggestions.map(s => (
             <button key={s} onClick={() => addNonFood(s, activeTab)} style={{
               flexShrink:0, background:T.surface, border:"1px solid rgba(0,0,0,0.1)",
-              borderRadius:16, padding:"7px 14px", color:T.textMid, cursor:"pointer", fontSize:12, whiteSpace:"nowrap",
+              borderRadius:16, padding:"7px 14px", color:T.textMid, cursor:"pointer", fontSize:13, whiteSpace:"nowrap",
             }}>+ {s}</button>
           ))}
         </div>
@@ -303,7 +303,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           color: id === "reset" ? T.textMid : (activeNav === id ? T.accent : T.textMuted),
           cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", gap:3,
         }}>
-          <span style={{ fontSize:11, fontFamily:"monospace", letterSpacing:"2px", fontWeight:"bold" }}>{label}</span>
+          <span style={{ fontSize:12, fontFamily:"var(--font-body)", letterSpacing:"1.2px", fontWeight:"bold" }}>{label}</span>
         </button>
       ))}
     </nav>
@@ -346,21 +346,21 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
             <p style={{ ...S.label, margin:"0 0 10px" }}>Guest List</p>
             {hosts.map(h => (
               <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.15)", borderRadius:8, padding:"8px 12px", marginBottom:4 }}>
-                <div style={{ fontSize:13, color:T.text }}>Host: {h.name}</div>
-                <div style={{ fontSize:10, color:T.accent, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
+                <div style={{ fontSize:14, color:T.text }}>Host: {h.name}</div>
+                <div style={{ fontSize:12, color:T.accent, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
               </div>
             ))}
             {guests.map(g => (
               <div key={g.id} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"8px 12px", marginBottom:4, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div>
-                  <div style={{ fontSize:13, color:T.text }}>{g.name}</div>
-                  <div style={{ fontSize:10, color:T.textMuted, fontFamily:"monospace", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
+                  <div style={{ fontSize:14, color:T.text }}>{g.name}</div>
+                  <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
                 </div>
-                <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.2)", cursor:"pointer", fontSize:18, padding:0 }}>&times;</button>
+                <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#6B4A32", cursor:"pointer", fontSize:18, padding:0 }}>&times;</button>
               </div>
             ))}
             <div style={{ display:"flex", gap:6, marginTop:8 }}>
-              <input aria-label="Add a guest" style={{ ...S.input, flex:1, padding:"8px 10px", fontSize:13 }} placeholder="Add guest..."
+              <input aria-label="Add a guest" style={{ ...S.input, flex:1, padding:"8px 10px", fontSize:14 }} placeholder="Add guest..."
                 value={newGuest} onChange={e => setNewGuest(e.target.value)} onKeyDown={e => e.key==="Enter" && addGuest()} />
               <button onClick={addGuest} style={{ ...S.btn, padding:"8px 12px", background:activeCatColor }}>+</button>
             </div>
@@ -374,7 +374,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
                 <button key={s} onClick={() => addNonFood(s, activeTab)} style={{
                   width:"100%", background:T.bg, border:"1px solid rgba(0,0,0,0.08)",
                   borderRadius:8, padding:"9px 12px", color:T.textMid, cursor:"pointer",
-                  textAlign:"left", fontSize:13, marginBottom:4,
+                  textAlign:"left", fontSize:14, marginBottom:4,
                 }}>+ {s}</button>
               ))}
             </div>
@@ -396,8 +396,8 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
                 {activeCatSymbol}
               </div>
               <div>
-                <h2 style={{ margin:0, fontSize:22, fontWeight:"normal", color:T.text }}>{activeTab}</h2>
-                <div style={{ fontSize:10, fontFamily:"monospace", color:T.textMuted, letterSpacing:"2px" }}>{visibleItems.length} ITEMS</div>
+                <h2 style={{ margin:0, fontSize:22, fontWeight:600, color:T.text }}>{activeTab}</h2>
+                <div style={{ fontSize:12, fontFamily:"var(--font-body)", color:T.textMuted, letterSpacing:"1.2px" }}>{visibleItems.length} ITEMS</div>
               </div>
             </div>
             {isFood && <button onClick={() => setShowAddFood(true)} style={{ ...S.btn, background:activeCatColor, padding:"10px 20px" }}>+ Add Item</button>}

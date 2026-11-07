@@ -41,15 +41,15 @@ export default function SetupScreen({ onComplete, onBack }) {
               aria-required="true" />
           </div>
           <div>
-            <label style={S.label}>Vibe / Theme <span style={{ color: T.textMuted, fontWeight: "normal" }}>(optional)</span></label>
+            <label style={S.label}>Vibe / Theme <span style={{ color: T.textMuted, fontWeight: 600 }}>(optional)</span></label>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
               {VIBES.map(v => (
                 <button key={v} onClick={() => setEvent(ev => ({ ...ev, theme: ev.theme === v ? "" : v }))} style={{
                   background: event.theme === v ? T.accentDim : "rgba(0,0,0,0.03)",
                   border: `1px solid ${event.theme === v ? T.accent : T.border}`,
                   borderRadius: 20, padding: "7px 15px", cursor: "pointer",
-                  color: event.theme === v ? T.text : T.textMuted, fontSize: 13,
-                  fontFamily: "Georgia, serif",
+                  color: event.theme === v ? T.text : T.textMuted, fontSize: 14,
+                  fontFamily: "var(--font-body)",
                 }}>{v}</button>
               ))}
             </div>
@@ -74,7 +74,7 @@ export default function SetupScreen({ onComplete, onBack }) {
               value={event.location} onChange={e => setEvent(ev => ({ ...ev, location: e.target.value }))} />
           </div>
           <div>
-            <label htmlFor="event-address" style={S.label}>Address <span style={{ color: T.textMuted, fontWeight: "normal" }}>(optional)</span></label>
+            <label htmlFor="event-address" style={S.label}>Address <span style={{ color: T.textMuted, fontWeight: 600 }}>(optional)</span></label>
             <input id="event-address" style={S.input} placeholder="123 Main St, Kansas City, MO"
               value={event.address} onChange={e => setEvent(ev => ({ ...ev, address: e.target.value }))} />
           </div>
@@ -87,7 +87,7 @@ export default function SetupScreen({ onComplete, onBack }) {
       content: (
         <div>
           <label style={S.label}>Who's hosting? <span style={{ color: T.textMuted }}>(max 2)</span></label>
-          <p style={{ color: T.textMuted, fontSize: 13, fontStyle: "italic", margin: "0 0 16px", lineHeight: 1.6 }}>
+          <p style={{ color: T.textMuted, fontSize: 14, fontStyle: "italic", margin: "0 0 16px", lineHeight: 1.6 }}>
             Hosts appear at the top of every list and can cover entire categories with one tap.
           </p>
           <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
@@ -106,7 +106,7 @@ export default function SetupScreen({ onComplete, onBack }) {
                 background: T.accentDim, border: `1px solid ${T.accentBorder}`,
                 borderRadius: 20, padding: "8px 14px",
                 display: "flex", alignItems: "center", gap: 10,
-                color: T.text, fontSize: 14,
+                color: T.text, fontSize: 15,
               }}>
                 Host: {h.name}
                 <span onClick={() => removeHost(h.id)} style={{ cursor: "pointer", color: T.accent, fontSize: 16, lineHeight: 1 }}>&times;</span>
@@ -114,7 +114,7 @@ export default function SetupScreen({ onComplete, onBack }) {
             ))}
           </div>
           {hosts.length === 0 && (
-            <p style={{ color: T.textMuted, fontSize: 12, fontFamily: "monospace", marginTop: 12 }}>Skip if not needed</p>
+            <p style={{ color: T.textMuted, fontSize: 13, fontFamily: "var(--font-body)", marginTop: 12 }}>Skip if not needed</p>
           )}
         </div>
       ),
@@ -137,7 +137,7 @@ export default function SetupScreen({ onComplete, onBack }) {
                 <div key={g.id} style={{
                   background: T.accentDim, border: `1px solid ${T.accentBorder}`,
                   borderRadius: 20, padding: "7px 12px 7px 16px",
-                  display: "flex", alignItems: "center", gap: 8, color: T.text, fontSize: 14,
+                  display: "flex", alignItems: "center", gap: 8, color: T.text, fontSize: 15,
                 }}>
                   {g.name}
                   <span onClick={() => removeGuest(g.id)}
@@ -146,7 +146,7 @@ export default function SetupScreen({ onComplete, onBack }) {
               ))}
             </div>
           ) : (
-            <p style={{ color: T.textMuted, fontSize: 13, fontStyle: "italic" }}>
+            <p style={{ color: T.textMuted, fontSize: 14, fontStyle: "italic" }}>
               Add people to assign items - more can be added later
             </p>
           )}
@@ -169,10 +169,10 @@ export default function SetupScreen({ onComplete, onBack }) {
           ))}
         </div>
 
-        <p style={{ color: T.textMuted, fontSize: 11, letterSpacing: "3px", textTransform: "uppercase", marginBottom: 8, fontFamily: "monospace" }}>
+        <p style={{ color: T.textMuted, fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", marginBottom: 8, fontFamily: "var(--font-body)" }}>
           Step {step + 1} of {steps.length}
         </p>
-        <h2 style={{ color: T.text, fontSize: 30, fontWeight: "normal", margin: "0 0 36px" }}>
+        <h2 style={{ color: T.text, fontSize: 30, fontWeight: 600, margin: "0 0 36px" }}>
           {current.title}
         </h2>
 

@@ -76,7 +76,7 @@ const QUICK_TIPS = [
 
 export default function RulesPage() {
   return (
-    <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"Georgia, serif" }}>
+    <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"var(--font-body)" }}>
 
       {/* Hero */}
       <div style={{ background:T.accent, padding:"56px 24px 48px", textAlign:"center", position:"relative", overflow:"hidden" }}>
@@ -84,17 +84,17 @@ export default function RulesPage() {
           <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.08)", top: 20 + i*18 }} />
         ))}
         <div style={{ maxWidth:640, margin:"0 auto", position:"relative" }}>
-          <div style={{ color:"rgba(255,255,255,0.7)", fontSize:10, letterSpacing:"6px", fontFamily:"monospace", marginBottom:16, textTransform:"uppercase" }}>
+          <div style={{ color:"#F5E6D0", fontSize:12, letterSpacing:"6px", fontFamily:"var(--font-body)", marginBottom:16, textTransform:"uppercase" }}>
             GET TOGETHER
           </div>
-          <h1 style={{ fontSize:"clamp(36px,8vw,64px)", fontWeight:"normal", color:"#F5E6D0", lineHeight:1.1, margin:"0 0 16px" }}>
+          <h1 style={{ fontSize:"clamp(36px,8vw,64px)", fontWeight:600, color:"#F5E6D0", lineHeight:1.1, margin:"0 0 16px" }}>
             Cookout Rules
           </h1>
-          <p style={{ color:"rgba(255,255,255,0.75)", fontSize:16, lineHeight:1.8, fontStyle:"italic", margin:"0 0 24px" }}>
+          <p style={{ color:"#F5E6D0", fontSize:16, lineHeight:1.8, fontStyle:"italic", margin:"0 0 24px" }}>
             Unwritten. Understood. Non-negotiable.<br />
             Passed down through every backyard, every reunion, every block party.
           </p>
-          <p style={{ color:"rgba(255,255,255,0.5)", fontSize:12, fontFamily:"monospace", letterSpacing:"2px" }}>
+          <p style={{ color:"#F5E6D0", fontSize:13, fontFamily:"var(--font-body)", letterSpacing:"1.2px" }}>
             12 RULES - MEMORIZE THEM
           </p>
         </div>
@@ -102,7 +102,7 @@ export default function RulesPage() {
 
       {/* Back button */}
       <div style={{ maxWidth:860, margin:"0 auto", padding:"20px 24px 0" }}>
-        <a href="/" style={{ display:"inline-flex", alignItems:"center", gap:8, color:T.accent, fontSize:14, fontFamily:"monospace", letterSpacing:"1px", textDecoration:"none", padding:"8px 0" }}>
+        <a href="/" style={{ display:"inline-flex", alignItems:"center", gap:8, color:T.accent, fontSize:15, fontFamily:"var(--font-body)", letterSpacing:"1px", textDecoration:"none", padding:"8px 0" }}>
           Back to Home
         </a>
       </div>
@@ -118,13 +118,13 @@ export default function RulesPage() {
             }}>
               <div style={{ display:"flex", alignItems:"flex-start", gap:14 }}>
                 <div style={{ flexShrink:0 }}>
-                  <div style={{ fontFamily:"monospace", fontSize:11, color:T.accent, letterSpacing:"2px", marginBottom:4 }}>{rule.number}</div>
+                  <div style={{ fontFamily:"var(--font-body)", fontSize:12, color:T.accent, letterSpacing:"1.2px", marginBottom:4 }}>{rule.number}</div>
                 </div>
                 <div>
-                  <h3 style={{ fontSize:17, fontWeight:"normal", color:T.text, margin:"0 0 10px", lineHeight:1.3 }}>
+                  <h3 style={{ fontSize:17, fontWeight:600, color:T.text, margin:"0 0 10px", lineHeight:1.3 }}>
                     {rule.title}
                   </h3>
-                  <p style={{ fontSize:14, color:T.textMid, lineHeight:1.8, margin:0, fontStyle:"italic" }}>
+                  <p style={{ fontSize:15, color:T.textMid, lineHeight:1.8, margin:0, fontStyle:"italic" }}>
                     {rule.body}
                   </p>
                 </div>
@@ -135,17 +135,17 @@ export default function RulesPage() {
 
         {/* Quick Tips */}
         <div style={{ borderTop:"1px solid rgba(0,0,0,0.08)", paddingTop:48, marginBottom:64 }}>
-          <h2 style={{ fontSize:28, fontWeight:"normal", color:T.text, margin:"0 0 8px" }}>
+          <h2 style={{ fontSize:28, fontWeight:600, color:T.text, margin:"0 0 8px" }}>
             Pro Tips
           </h2>
-          <p style={{ color:T.textMuted, fontSize:13, fontStyle:"italic", marginBottom:28 }}>
+          <p style={{ color:T.textMuted, fontSize:14, fontStyle:"italic", marginBottom:28 }}>
             The stuff nobody tells you until it's too late.
           </p>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(320px, 1fr))", gap:10 }}>
             {QUICK_TIPS.map((tip, i) => (
               <div key={i} style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.06)", borderRadius:8, padding:"14px 16px", display:"flex", gap:12, alignItems:"flex-start" }}>
-                <span style={{ color:T.accent, fontFamily:"monospace", fontSize:12, flexShrink:0, marginTop:1 }}>*</span>
-                <p style={{ color:T.textMid, fontSize:14, lineHeight:1.7, margin:0 }}>{tip}</p>
+                <span style={{ color:T.accent, fontFamily:"var(--font-body)", fontSize:13, flexShrink:0, marginTop:1 }}>*</span>
+                <p style={{ color:T.textMid, fontSize:15, lineHeight:1.7, margin:0 }}>{tip}</p>
               </div>
             ))}
           </div>
@@ -153,18 +153,18 @@ export default function RulesPage() {
 
         {/* CTA */}
         <div style={{ textAlign:"center", padding:"48px 24px", background:"rgba(200,75,49,0.06)", border:"1px solid rgba(200,75,49,0.15)", borderRadius:16 }}>
-          <h2 style={{ fontSize:26, fontWeight:"normal", color:T.text, margin:"0 0 12px" }}>
+          <h2 style={{ fontSize:26, fontWeight:600, color:T.text, margin:"0 0 12px" }}>
             Ready to Plan Yours?
           </h2>
-          <p style={{ color:T.textMuted, fontSize:14, fontStyle:"italic", marginBottom:28, lineHeight:1.7 }}>
+          <p style={{ color:T.textMuted, fontSize:15, fontStyle:"italic", marginBottom:28, lineHeight:1.7 }}>
             Get Together handles the food, the guests, the assignments, and the Day Of checklist.<br />
             Free. No login. Built for the culture.
           </p>
-          <a href="/" style={{ display:"inline-block", background:T.accent, color:"#FFF", borderRadius:8, padding:"14px 36px", fontSize:16, textDecoration:"none", fontFamily:"Georgia, serif" }}>
+          <a href="/" style={{ display:"inline-block", background:T.accent, color:"#FFF", borderRadius:8, padding:"14px 36px", fontSize:16, textDecoration:"none", fontFamily:"var(--font-body)" }}>
             Plan a Cookout
           </a>
           <div style={{ marginTop:16 }}>
-            <a href="/" style={{ color:T.textMuted, fontSize:12, fontFamily:"monospace", letterSpacing:"2px", textDecoration:"none" }}>
+            <a href="/" style={{ color:T.textMuted, fontSize:13, fontFamily:"var(--font-body)", letterSpacing:"1.2px", textDecoration:"none" }}>
               gettogether.rare-user.com
             </a>
           </div>
