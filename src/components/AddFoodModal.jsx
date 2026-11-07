@@ -144,7 +144,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
             SELECT ACROSS ALL CATEGORIES - ADD EVERYTHING AT ONCE
           </p>
           {/* Tabs */}
-          <div style={{ display:"flex", overflowX:"auto", borderBottom:"1px solid rgba(0,0,0,0.08)", gap:0 }}>
+          <div style={{ display:"flex", overflowX:"auto", borderBottom:"1px solid rgba(255,255,255,0.12)", gap:0 }}>
             {Object.keys(FOOD_STRUCTURE).map(cat => {
               const cnt = getCatCount(cat);
               return (
@@ -194,7 +194,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         </span>
                       </button>
                       {selected && expanded && (
-                        <div style={{ background:"rgba(0,0,0,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
+                        <div style={{ background:"rgba(255,255,255,0.05)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
                           <p style={{ ...S.label, margin:"0 0 8px" }}>Cook method (optional)</p>
                           <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
                             {struct.cookMethods.map(m => (
@@ -242,7 +242,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                         </span>
                       </button>
                       {selected && expanded && struct.styles && (
-                        <div style={{ background:"rgba(0,0,0,0.03)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
+                        <div style={{ background:"rgba(255,255,255,0.05)", border:`1px solid ${color}44`, borderTop:"none", borderRadius:"0 0 8px 8px", padding:"12px 14px" }}>
                           <p style={{ ...S.label, margin:"0 0 8px" }}>Style (optional)</p>
                           <div style={{ display:"flex", flexWrap:"wrap", gap:6 }}>
                             {struct.styles.map(m => (
@@ -286,7 +286,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
           )}
 
           {/* Custom */}
-          <div style={{ marginTop:24, paddingTop:20, borderTop:"1px solid rgba(0,0,0,0.08)" }}>
+          <div style={{ marginTop:24, paddingTop:20, borderTop:"1px solid rgba(255,255,255,0.12)" }}>
             <label htmlFor="custom-food-input" style={S.label}>Add something not listed</label>
             <input id="custom-food-input" style={S.input} placeholder={CUSTOM_PLACEHOLDERS[tab] || "e.g. Custom item..."}
               value={custom} onChange={e => setCustom(e.target.value)}
@@ -296,7 +296,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
         </div>
 
         {/* Footer */}
-        <div style={{ flexShrink:0, padding:"16px 24px", borderTop:"1px solid rgba(0,0,0,0.08)", background:T.bg }}>
+        <div style={{ flexShrink:0, padding:"16px 24px", borderTop:"1px solid rgba(255,255,255,0.12)", background:T.bg }}>
           {stagedItems.length > 0 && (
             <div style={{ marginBottom:12, display:"flex", flexWrap:"wrap", gap:6, maxHeight:80, overflowY:"auto" }}>
               {stagedItems.map((item, i) => (
@@ -310,7 +310,7 @@ export default function AddFoodModal({ onAddMany, onClose }) {
                 </span>
               ))}
               {custom.trim() && (
-                <span style={{ background:T.border, border:"1px solid rgba(0,0,0,0.12)", borderRadius:12, padding:"3px 10px", fontSize:12, color:T.textMid, fontFamily:T.fontMono }}>
+                <span style={{ background:T.border, border:"1px solid rgba(255,255,255,0.16)", borderRadius:12, padding:"3px 10px", fontSize:12, color:T.textMid, fontFamily:T.fontMono }}>
                   + {custom.trim()}
                 </span>
               )}
@@ -328,14 +328,14 @@ export default function AddFoodModal({ onAddMany, onClose }) {
       {/* Discard confirmation */}
       {showDiscardConfirm && (
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:400, padding:16 }} onClick={() => setShowDiscardConfirm(false)}>
-          <div role="alertdialog" aria-label="Discard selections?" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
+          <div role="alertdialog" aria-label="Discard selections?" style={{ background:T.bg, border:"1px solid rgba(255,255,255,0.2)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
             <h3 style={{ fontWeight:600, fontSize:20, margin:"0 0 10px", color:T.text }}>Discard Selections?</h3>
             <p style={{ color:T.textMuted, fontSize:15, margin:"0 0 24px", lineHeight:1.7 }}>
               You have {totalCount} item{totalCount !== 1 ? "s" : ""} selected. Close without adding them?
             </p>
             <div style={{ display:"flex", gap:10 }}>
               <button onClick={() => setShowDiscardConfirm(false)} style={{ ...S.ghostBtn, flex:1 }}>Keep Editing</button>
-              <button onClick={onClose} style={{ ...S.btn, flex:1, background:"#8B1A0A" }}>Discard</button>
+              <button onClick={onClose} style={{ ...S.btn, flex:1, background:"#E0533F" }}>Discard</button>
             </div>
           </div>
         </div>

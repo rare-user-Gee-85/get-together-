@@ -45,7 +45,7 @@ export default function SetupScreen({ onComplete, onBack }) {
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
               {VIBES.map(v => (
                 <button key={v} onClick={() => setEvent(ev => ({ ...ev, theme: ev.theme === v ? "" : v }))} style={{
-                  background: event.theme === v ? T.accentDim : "rgba(0,0,0,0.03)",
+                  background: event.theme === v ? T.accentDim : "rgba(255,255,255,0.05)",
                   border: `1px solid ${event.theme === v ? T.accent : T.border}`,
                   borderRadius: 20, padding: "7px 15px", cursor: "pointer",
                   color: event.theme === v ? T.text : T.textMuted, fontSize: 14,

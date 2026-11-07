@@ -99,9 +99,9 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
 
   return (
     <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:300, padding:16 }} onClick={onClose}>
-      <div ref={modalRef} role="dialog" aria-modal="true" aria-label={`Invite to ${event.name}`} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
+      <div ref={modalRef} role="dialog" aria-modal="true" aria-label={`Invite to ${event.name}`} style={{ background:T.bg, border:"1px solid rgba(255,255,255,0.2)", borderRadius:16, width:"100%", maxWidth:540, maxHeight:"92vh", display:"flex", flexDirection:"column" }} onClick={e=>e.stopPropagation()}>
 
-        <div style={{ padding:"22px 24px 16px", borderBottom:"1px solid rgba(0,0,0,0.08)", flexShrink:0 }}>
+        <div style={{ padding:"22px 24px 16px", borderBottom:"1px solid rgba(255,255,255,0.12)", flexShrink:0 }}>
           <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.5px", color:T.accent, marginBottom:6, textTransform:"uppercase" }}>Send Invites</div>
           <h3 style={{ fontWeight:600, fontSize:22, color:T.text, margin:0 }}>Invite to {event.name}</h3>
         </div>
@@ -128,7 +128,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
               <p style={{ fontSize:14, color:T.textMid, marginBottom:12, lineHeight:1.6, fontStyle:"italic" }}>
                 When {guest.name} taps this link, they'll see the event details, their assignments, and a one-tap "I'm Going" button.
               </p>
-              <div style={{ background:"rgba(0,0,0,0.05)", borderRadius:6, padding:"10px 12px", fontFamily:"var(--font-body)", fontSize:12, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
+              <div style={{ background:"rgba(255,255,255,0.07)", borderRadius:6, padding:"10px 12px", fontFamily:"var(--font-body)", fontSize:12, color:T.textMid, wordBreak:"break-all", marginBottom:10 }}>
                 {rsvpLink.length > 80 ? rsvpLink.slice(0, 80) + "..." : rsvpLink}
               </div>
               <button onClick={copyRSVPLink} style={{ ...S.btn, width:"100%", padding:"10px", fontSize:13, background: linkCopied ? "#2E9E6B" : T.accent }}>
@@ -141,7 +141,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           <div>
             <label style={S.label}>Full Message Preview</label>
             <div style={{
-              background:T.surface, border:"1px solid rgba(0,0,0,0.08)",
+              background:T.surface, border:"1px solid rgba(255,255,255,0.12)",
               borderRadius:8, padding:16, fontSize:14, color:T.textMid,
               whiteSpace:"pre-wrap", lineHeight:1.7, maxHeight:180, overflowY:"auto", fontFamily:"var(--font-body)",
             }}>
@@ -196,7 +196,7 @@ export default function InviteModal({ event, guests, items, hosts, pdfDataURL, o
           </div>
         </div>
 
-        <div style={{ padding:"16px 24px", borderTop:"1px solid rgba(0,0,0,0.08)", flexShrink:0 }}>
+        <div style={{ padding:"16px 24px", borderTop:"1px solid rgba(255,255,255,0.12)", flexShrink:0 }}>
           <button onClick={onClose} style={{ ...S.ghostBtn, width:"100%" }}>Close</button>
         </div>
       </div>

@@ -22,12 +22,12 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
       zIndex: 400,
       overflowY: "auto",
       fontFamily: "var(--font-body)",
-      color: "#F5E6D0",
+      color: "#F3F0EB",
     }}>
       {/* Header */}
       <div style={{
         background: "linear-gradient(135deg, #1E0C00, #2D1500)",
-        borderBottom: "1px solid rgba(200,75,49,0.2)",
+        borderBottom: "1px solid rgba(220,40,64,0.2)",
         padding: "20px 24px",
         position: "sticky", top: 0, zIndex: 10,
       }}>
@@ -35,7 +35,7 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span style={{ fontSize: 20 }}>✅</span>
-              <span style={{ color: "#C84B31", fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>Day Of Checker</span>
+              <span style={{ color: "#DC2840", fontSize: 12, letterSpacing: "1.5px", textTransform: "uppercase", fontFamily: "var(--font-body)" }}>Day Of Checker</span>
             </div>
             <p style={{ margin: 0, color: "#7A5A40", fontSize: 15 }}>
               Visually confirm each item as it arrives
@@ -45,12 +45,12 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
             {/* Progress circle-ish */}
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 28, fontWeight: "bold", color: pct === 100 ? "#2E9E6B" : "#C84B31", lineHeight: 1 }}>{pct}%</div>
-              <div style={{ fontSize: 12, color: "#4A3020", fontFamily: "var(--font-body)", letterSpacing: "1px" }}>CONFIRMED</div>
+              <div style={{ fontSize: 28, fontWeight: "bold", color: pct === 100 ? "#2E9E6B" : "#DC2840", lineHeight: 1 }}>{pct}%</div>
+              <div style={{ fontSize: 12, color: "#D6D0C7", fontFamily: "var(--font-body)", letterSpacing: "1px" }}>CONFIRMED</div>
             </div>
             <div style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 28, fontWeight: "bold", color: "#F5E6D0", lineHeight: 1 }}>{brought}/{total}</div>
-              <div style={{ fontSize: 12, color: "#4A3020", fontFamily: "var(--font-body)", letterSpacing: "1px" }}>ITEMS IN</div>
+              <div style={{ fontSize: 28, fontWeight: "bold", color: "#F3F0EB", lineHeight: 1 }}>{brought}/{total}</div>
+              <div style={{ fontSize: 12, color: "#D6D0C7", fontFamily: "var(--font-body)", letterSpacing: "1px" }}>ITEMS IN</div>
             </div>
 
             <button onClick={onClose} style={{ ...S.ghostBtn, padding: "8px 16px", fontSize: 14 }}>
@@ -64,7 +64,7 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
           <div style={{ height: 4, background: "rgba(255,255,255,0.06)", borderRadius: 2 }}>
             <div style={{
               height: "100%", width: `${pct}%`,
-              background: pct === 100 ? "#2E9E6B" : "linear-gradient(90deg, #C84B31, #D4813A)",
+              background: pct === 100 ? "#2E9E6B" : "linear-gradient(90deg, #DC2840, #D4813A)",
               borderRadius: 2, transition: "width 0.4s",
             }} />
           </div>
@@ -84,7 +84,7 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
           const catItems = items.filter(i => i.category === cat);
           if (catItems.length === 0) return null;
           const catBrought = catItems.filter(i => i.brought).length;
-          const catColor = CAT_COLORS[cat] || "#C84B31";
+          const catColor = CAT_COLORS[cat] || "#DC2840";
 
           return (
             <div key={cat} style={{ marginBottom: 32 }}>
@@ -95,7 +95,7 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
                 borderBottom: `1px solid ${catColor}33`,
               }}>
                 <span style={{ fontSize: 20 }}>{getEmoji(cat)}</span>
-                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, color: "#F5E6D0", flex: 1 }}>{cat}</h3>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 600, color: "#F3F0EB", flex: 1 }}>{cat}</h3>
                 <span style={{
                   background: catBrought === catItems.length ? "rgba(46,158,107,0.2)" : `${catColor}22`,
                   border: `1px solid ${catBrought === catItems.length ? "#2E9E6B" : catColor}44`,
@@ -138,13 +138,13 @@ export default function DayOfChecker({ items, guests, onToggleBrought, onClose }
                       <div style={{ flex: 1 }}>
                         <div style={{
                           fontSize: 16,
-                          color: item.brought ? "#4A6A40" : "#F5E6D0",
+                          color: item.brought ? "#4A6A40" : "#F3F0EB",
                           textDecoration: item.brought ? "line-through" : "none",
                         }}>
                           {item.name}
                         </div>
                         {guest && (
-                          <div style={{ fontSize: 13, color: item.brought ? "#3A5A30" : "#C84B31", fontFamily: "var(--font-body)", marginTop: 2 }}>
+                          <div style={{ fontSize: 13, color: item.brought ? "#3A5A30" : "#DC2840", fontFamily: "var(--font-body)", marginTop: 2 }}>
                             👤 {guest.name}
                           </div>
                         )}

@@ -59,26 +59,26 @@ export default function RSVPView() {
     <div style={{ minHeight:"100vh", background:T.bg, fontFamily:"var(--font-body)" }}>
 
       {/* Header */}
-      <div style={{ background:T.accent, borderBottom:"1px solid rgba(0,0,0,0.1)", padding:"28px 24px", position:"relative", overflow:"hidden" }}>
+      <div style={{ background:T.accent, borderBottom:"1px solid rgba(255,255,255,0.14)", padding:"28px 24px", position:"relative", overflow:"hidden" }}>
         {[...Array(10)].map((_,i) => (
-          <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.07)", top: i*16 }} />
+          <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(255,255,255,0.1)", top: i*16 }} />
         ))}
         <div style={{ maxWidth:560, margin:"0 auto", position:"relative" }}>
-          <div style={{ color:"#F5E6D0", fontSize:12, letterSpacing:"2px", fontFamily:"var(--font-body)", marginBottom:8 }}>GET TOGETHER - INVITE</div>
-          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:600, color:"#F5E6D0", margin:"0 0 12px" }}>
+          <div style={{ color:"#F3F0EB", fontSize:12, letterSpacing:"2px", fontFamily:"var(--font-body)", marginBottom:8 }}>GET TOGETHER - INVITE</div>
+          <h1 style={{ fontSize:"clamp(24px,6vw,38px)", fontWeight:600, color:"#F3F0EB", margin:"0 0 12px" }}>
             {data.event?.name}
           </h1>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-            {data.event?.date && <span style={{ color:"#F5E6D0", fontSize:16 }}>Date: {formatDate(data.event.date)}</span>}
-            {data.event?.location && <span style={{ color:"#F5E6D0", fontSize:16 }}>Location: {data.event.location}</span>}
+            {data.event?.date && <span style={{ color:"#F3F0EB", fontSize:16 }}>Date: {formatDate(data.event.date)}</span>}
+            {data.event?.location && <span style={{ color:"#F3F0EB", fontSize:16 }}>Location: {data.event.location}</span>}
             {data.event?.address && (
               <a href={`https://maps.google.com/?q=${encodeURIComponent(data.event.address)}`} target="_blank" rel="noreferrer"
-                style={{ color:"#F5E6D0", fontSize:14, textDecoration:"none" }}>
+                style={{ color:"#F3F0EB", fontSize:14, textDecoration:"none" }}>
                 Map: {data.event.address}
               </a>
             )}
             {data.event?.theme && (
-              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", borderRadius:12, padding:"3px 12px", color:"#F5E6D0", fontSize:12, fontFamily:"var(--font-body)", marginTop:4 }}>
+              <span style={{ display:"inline-block", width:"fit-content", background:"rgba(255,255,255,0.15)", border:"1px solid rgba(255,255,255,0.25)", borderRadius:12, padding:"3px 12px", color:"#F3F0EB", fontSize:12, fontFamily:"var(--font-body)", marginTop:4 }}>
                 {data.event.theme}
               </span>
             )}
@@ -140,7 +140,7 @@ export default function RSVPView() {
             <p style={{ ...S.label, marginBottom:12 }}>Your Assignment{myItems.length > 1 ? "s" : ""}</p>
             <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
               {myItems.map(item => (
-                <div key={item.id} style={{ background:"rgba(200,75,49,0.1)", border:"1px solid rgba(200,75,49,0.25)", borderRadius:10, padding:"12px 16px", display:"flex", alignItems:"center", gap:10 }}>
+                <div key={item.id} style={{ background:"rgba(220,40,64,0.1)", border:"1px solid rgba(220,40,64,0.25)", borderRadius:10, padding:"12px 16px", display:"flex", alignItems:"center", gap:10 }}>
                   <span style={{ color:T.text, fontSize:16 }}>{item.name}</span>
                   <span style={{ marginLeft:"auto", color:T.accent, fontSize:12, fontFamily:"var(--font-body)" }}>{item.category}</span>
                 </div>
@@ -155,7 +155,7 @@ export default function RSVPView() {
             <p style={{ ...S.label, marginBottom:12 }}>Hosted by</p>
             <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
               {hosts.map(h => (
-                <div key={h.id} style={{ background:"rgba(200,75,49,0.12)", border:"1px solid rgba(200,75,49,0.3)", borderRadius:20, padding:"8px 16px", color:T.text, fontSize:15 }}>
+                <div key={h.id} style={{ background:"rgba(220,40,64,0.12)", border:"1px solid rgba(220,40,64,0.3)", borderRadius:20, padding:"8px 16px", color:T.text, fontSize:15 }}>
                   {h.name}
                 </div>
               ))}

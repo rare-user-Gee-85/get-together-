@@ -7,9 +7,9 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
   const symbol = CAT_SYMBOLS[category] || "O";
 
   if (!items.length) return (
-    <div style={{ textAlign:"center", padding:"52px 24px", border:"2px dashed rgba(0,0,0,0.1)", borderRadius:12 }}>
-      <div style={{ fontSize:36, marginBottom:12, color:"rgba(0,0,0,0.15)", fontWeight:"bold" }}>{symbol}</div>
-      <p style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.2px", color:"#6B4A32" }}>NO {category.toUpperCase()} ITEMS YET</p>
+    <div style={{ textAlign:"center", padding:"52px 24px", border:"2px dashed rgba(255,255,255,0.14)", borderRadius:12 }}>
+      <div style={{ fontSize:36, marginBottom:12, color:"rgba(255,255,255,0.2)", fontWeight:"bold" }}>{symbol}</div>
+      <p style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.2px", color:"#B3ACA3" }}>NO {category.toUpperCase()} ITEMS YET</p>
     </div>
   );
 
@@ -23,8 +23,8 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
             const allCovered = catItems.length > 0 && catItems.every(i => i.assignedTo === h.id);
             return (
               <button key={h.id} onClick={() => onHostCoverCategory(h.id)} style={{
-                background: allCovered ? color : "rgba(0,0,0,0.05)",
-                border: `1px solid ${allCovered ? color : "rgba(0,0,0,0.12)"}`,
+                background: allCovered ? color : "rgba(255,255,255,0.07)",
+                border: `1px solid ${allCovered ? color : "rgba(255,255,255,0.16)"}`,
                 borderRadius:16, padding:"6px 14px", fontSize:12,
                 color: allCovered ? "#fff" : T.textMid,
                 cursor:"pointer", fontFamily:"var(--font-body)", letterSpacing:"1px",
@@ -41,7 +41,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
         return (
           <div key={item.id} style={{
             background: item.brought ? `${color}15` : T.surface,
-            border: `1px solid ${item.brought ? color : "rgba(0,0,0,0.08)"}`,
+            border: `1px solid ${item.brought ? color : "rgba(255,255,255,0.12)"}`,
             borderLeft: `4px solid ${color}`,
             borderRadius:10, padding:"12px 14px",
             display:"flex", alignItems:"center", gap:12,
@@ -51,7 +51,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
             <div onClick={() => onToggleBrought(item.id)} style={{
               width:22, height:22, borderRadius:4, flexShrink:0, cursor:"pointer",
               background: item.brought ? color : "transparent",
-              border: `2px solid ${item.brought ? color : "rgba(0,0,0,0.2)"}`,
+              border: `2px solid ${item.brought ? color : "rgba(255,255,255,0.28)"}`,
               display:"flex", alignItems:"center", justifyContent:"center",
             }}>
               {item.brought && <span style={{ color:"#fff", fontSize:14, lineHeight:1 }}>&#10003;</span>}
@@ -66,7 +66,7 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
 
             {/* Assign */}
             <select value={item.assignedTo || ""} onChange={e => onAssign(item.id, e.target.value)} style={{
-              background:T.bg, border:"1px solid rgba(0,0,0,0.1)", borderRadius:16,
+              background:T.bg, border:"1px solid rgba(255,255,255,0.14)", borderRadius:16,
               padding:"4px 10px", fontSize:12, color: assignedPerson ? color : "rgba(0,0,0,0.3)",
               cursor:"pointer", fontFamily:"var(--font-body)", maxWidth:120,
             }}>
@@ -75,8 +75,8 @@ export default function ItemList({ items, guests, hosts, category, onToggleBroug
             </select>
 
             {/* Remove */}
-            <button onClick={() => onRemove(item.id)} aria-label={`Remove ${item.name}`} style={{ background:"none", border:"none", color:"rgba(0,0,0,0.15)", cursor:"pointer", fontSize:18, flexShrink:0, padding:0 }}
-              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(0,0,0,0.15)"}>&times;</button>
+            <button onClick={() => onRemove(item.id)} aria-label={`Remove ${item.name}`} style={{ background:"none", border:"none", color:"rgba(255,255,255,0.2)", cursor:"pointer", fontSize:18, flexShrink:0, padding:0 }}
+              onMouseEnter={e=>e.target.style.color=color} onMouseLeave={e=>e.target.style.color="rgba(255,255,255,0.2)"}>&times;</button>
           </div>
         );
       })}

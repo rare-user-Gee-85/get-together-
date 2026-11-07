@@ -13,7 +13,7 @@ const ALL_TABS = [...FOOD_TABS, ...NON_FOOD_TABS];
 const Stripes = () => (
   <div style={{ position:"absolute", inset:0, overflow:"hidden", pointerEvents:"none" }}>
     {[...Array(12)].map((_,i) => (
-      <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.07)", top: i*16 }} />
+      <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(255,255,255,0.1)", top: i*16 }} />
     ))}
   </div>
 );
@@ -95,23 +95,23 @@ export default function Dashboard({ event, initialGuests, initialHosts, onDataCh
   const buildPDFHTML = () => {
     const getGuest = (id) => allPeople.find(g => g.id === id);
     return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${event.name}</title>
-<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:Georgia,serif;background:#F5E6D0;color:#1a0800;padding:40px;max-width:800px;margin:0 auto;}
-.header{background:#C84B31;padding:32px;position:relative;overflow:hidden;margin-bottom:28px;}
-.stripes{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 15px,rgba(0,0,0,0.06) 15px,rgba(0,0,0,0.06) 16px);}
-.header h1{color:#F5E6D0;font-size:32px;font-weight:normal;position:relative;}
+<style>*{margin:0;padding:0;box-sizing:border-box;}body{font-family:Georgia,serif;background:#F3F0EB;color:#1a0800;padding:40px;max-width:800px;margin:0 auto;}
+.header{background:#DC2840;padding:32px;position:relative;overflow:hidden;margin-bottom:28px;}
+.stripes{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 15px,rgba(255,255,255,0.08) 15px,rgba(255,255,255,0.08) 16px);}
+.header h1{color:#F3F0EB;font-size:32px;font-weight:normal;position:relative;}
 .header .meta{color:rgba(255,255,255,0.7);font-family:monospace;font-size:11px;letter-spacing:3px;margin-top:6px;position:relative;}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#ddd;border-radius:8px;overflow:hidden;margin-bottom:24px;}
-.stat{background:#fff;padding:14px;text-align:center;}.stat-num{font-size:24px;color:#C84B31;font-weight:bold;}.stat-label{font-family:monospace;font-size:9px;letter-spacing:2px;color:#aaa;text-transform:uppercase;}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.2);border-radius:8px;overflow:hidden;margin-bottom:24px;}
+.stat{background:#fff;padding:14px;text-align:center;}.stat-num{font-size:24px;color:#DC2840;font-weight:bold;}.stat-label{font-family:monospace;font-size:9px;letter-spacing:2px;color:#aaa;text-transform:uppercase;}
 .cat-header{display:flex;align-items:center;gap:10px;margin:20px 0 8px;padding-bottom:6px;border-bottom:2px solid currentColor;}
 .cat-symbol{font-size:20px;font-weight:bold;}.cat-name{font-family:monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;}
-.item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);}
-.check{width:20px;height:20px;border:2px solid #ddd;border-radius:4px;flex-shrink:0;}
+.item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.08);}
+.check{width:20px;height:20px;border:2px solid rgba(255,255,255,0.2);border-radius:4px;flex-shrink:0;}
 .item-name{flex:1;font-size:14px;}.item-tag{font-family:monospace;font-size:10px;padding:3px 8px;border-radius:10px;color:#fff;}
-.footer{margin-top:32px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:3px;color:#bbb;border-top:1px solid #ddd;padding-top:14px;}
+.footer{margin-top:32px;text-align:center;font-family:monospace;font-size:10px;letter-spacing:3px;color:#bbb;border-top:1px solid rgba(255,255,255,0.2);padding-top:14px;}
 </style></head><body>
 <div class="header"><div class="stripes"></div><div class="meta">GET TOGETHER - COOKOUT COMMAND STATION</div><h1>${event.name}</h1><div class="meta">${[event.date?formatDate(event.date):"",event.location?`Location: ${event.location}`:"",event.address?`Address: ${event.address}`:""].filter(Boolean).join("  -  ")}</div></div>
 <div class="stats"><div class="stat"><div class="stat-num">${allPeople.length}</div><div class="stat-label">Guests</div></div><div class="stat"><div class="stat-num">${items.length}</div><div class="stat-label">Items</div></div><div class="stat"><div class="stat-num">${assignedCount}</div><div class="stat-label">Assigned</div></div><div class="stat"><div class="stat-num">${progress}%</div><div class="stat-label">Ready</div></div></div>
-${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)return "";const color=CAT_COLORS_LIGHT[cat]||"#C84B31";const sym=CAT_SYMBOLS[cat]||"O";return `<div class="cat-header" style="color:${color}"><span class="cat-symbol">${sym}</span><span class="cat-name">${cat}</span></div>${ci.map(item=>{const g=item.assignedTo?getGuest(item.assignedTo):null;return `<div class="item"><div class="check"></div><div class="item-name">${item.name}</div>${g?`<span class="item-tag" style="background:${color}">${g.name}</span>`:""}</div>`;}).join("")}`;}).join("")}
+${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)return "";const color=CAT_COLORS_LIGHT[cat]||"#DC2840";const sym=CAT_SYMBOLS[cat]||"O";return `<div class="cat-header" style="color:${color}"><span class="cat-symbol">${sym}</span><span class="cat-name">${cat}</span></div>${ci.map(item=>{const g=item.assignedTo?getGuest(item.assignedTo):null;return `<div class="item"><div class="check"></div><div class="item-name">${item.name}</div>${g?`<span class="item-tag" style="background:${color}">${g.name}</span>`:""}</div>`;}).join("")}`;}).join("")}
 <div class="footer">MADE WITH GET TOGETHER - COOKOUT COMMAND STATION - RARE UX DESIGN</div>
 </body></html>`;
   };
@@ -149,12 +149,12 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     {showInvite && <InviteModal event={event} guests={allPeople} items={items} hosts={hosts} pdfDataURL={getPDFDataURL()} onClose={() => setShowInvite(false)} />}
     {showResetConfirm && (
       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.6)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:500, padding:16 }} onClick={() => setShowResetConfirm(false)}>
-        <div role="alertdialog" aria-label="Confirm reset" style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.15)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
+        <div role="alertdialog" aria-label="Confirm reset" style={{ background:T.bg, border:"1px solid rgba(255,255,255,0.2)", borderRadius:16, padding:32, maxWidth:340, width:"100%", textAlign:"center" }} onClick={e => e.stopPropagation()}>
           <h3 style={{ fontWeight:600, fontSize:20, margin:"0 0 10px", color:T.text }}>Start Over?</h3>
           <p style={{ color:T.textMuted, fontSize:15, margin:"0 0 24px", lineHeight:1.7 }}>This clears all event data. Save your PDF first if needed.</p>
           <div style={{ display:"flex", gap:10 }}>
             <button onClick={() => setShowResetConfirm(false)} style={{ ...S.ghostBtn, flex:1 }}>Cancel</button>
-            <button onClick={onReset} style={{ ...S.btn, flex:1, background:"#8B1A0A" }}>Clear All</button>
+            <button onClick={onReset} style={{ ...S.btn, flex:1, background:"#E0533F" }}>Clear All</button>
           </div>
         </div>
       </div>
@@ -162,22 +162,22 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     {showGuestPanel && (
       <div style={{ position:"fixed", inset:0, zIndex:400, display:"flex", flexDirection:"column", justifyContent:"flex-end" }}>
         <div onClick={() => setShowGuestPanel(false)} style={{ flex:1, background:"rgba(0,0,0,0.5)" }} />
-        <div role="dialog" aria-label="Guest list" style={{ background:T.bg, borderRadius:"16px 16px 0 0", padding:24, maxHeight:"72vh", overflowY:"auto", borderTop:"1px solid rgba(0,0,0,0.1)" }}>
-          <div style={{ width:36, height:4, background:"rgba(0,0,0,0.15)", borderRadius:2, margin:"0 auto 20px" }} />
+        <div role="dialog" aria-label="Guest list" style={{ background:T.bg, borderRadius:"16px 16px 0 0", padding:24, maxHeight:"72vh", overflowY:"auto", borderTop:"1px solid rgba(255,255,255,0.14)" }}>
+          <div style={{ width:36, height:4, background:"rgba(255,255,255,0.2)", borderRadius:2, margin:"0 auto 20px" }} />
           <h3 style={{ fontWeight:600, fontSize:20, color:T.text, margin:"0 0 16px" }}>Guest List</h3>
           {hosts.map(h => (
-            <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.2)", borderRadius:8, padding:"10px 14px", marginBottom:6 }}>
+            <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(220,40,64,0.2)", borderRadius:8, padding:"10px 14px", marginBottom:6 }}>
               <div style={{ fontSize:15, color:T.text }}>Host: {h.name}</div>
               <div style={{ fontSize:12, color:T.accent, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
             </div>
           ))}
           {guests.map(g => (
-            <div key={g.id} style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"10px 14px", marginBottom:6, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+            <div key={g.id} style={{ background:T.surface, border:"1px solid rgba(255,255,255,0.12)", borderRadius:8, padding:"10px 14px", marginBottom:6, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
               <div>
                 <div style={{ fontSize:15, color:T.text }}>{g.name}</div>
                 <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
               </div>
-              <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#6B4A32", cursor:"pointer", fontSize:22, padding:0 }}>&times;</button>
+              <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#B3ACA3", cursor:"pointer", fontSize:22, padding:0 }}>&times;</button>
             </div>
           ))}
           <div style={{ display:"flex", gap:8, marginTop:12 }}>
@@ -195,15 +195,15 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
   const ColorBlockHeader = ({ compact }) => (
     <header style={{ background:activeCatColor, position:"relative", overflow:"hidden", padding: compact ? "14px 16px" : "20px 16px", textAlign:"center" }}>
       <Stripes />
-      <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"var(--font-body)", fontWeight:"bold", color:"rgba(0,0,0,0.07)", lineHeight:1, userSelect:"none" }}>
+      <div style={{ position:"absolute", right:-8, top:-8, fontSize:compact?80:120, fontFamily:"var(--font-body)", fontWeight:"bold", color:"rgba(255,255,255,0.1)", lineHeight:1, userSelect:"none" }}>
         {activeCatSymbol}
       </div>
       <div style={{ position:"relative" }}>
         <div>
-          <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.5px", color:"#F5E6D0", marginBottom:compact?4:6 }}>GET TOGETHER</div>
-          <div style={{ fontFamily:"var(--font-body)", color:"#F5E6D0", fontSize: compact?20:24, fontWeight:600 }}>{event.name}</div>
-          {!compact && event.date && <div style={{ color:"#F5E6D0", fontSize:13, fontFamily:"var(--font-body)", marginTop:2 }}>{formatDate(event.date)}{event.location?` - ${event.location}`:""}</div>}
-          {!compact && event.address && <div style={{ color:"#F5E6D0", fontSize:12, fontFamily:"var(--font-body)", marginTop:1 }}>{event.address}</div>}
+          <div style={{ fontFamily:"var(--font-body)", fontSize:12, letterSpacing:"1.5px", color:"#F3F0EB", marginBottom:compact?4:6 }}>GET TOGETHER</div>
+          <div style={{ fontFamily:"var(--font-body)", color:"#F3F0EB", fontSize: compact?20:24, fontWeight:600 }}>{event.name}</div>
+          {!compact && event.date && <div style={{ color:"#F3F0EB", fontSize:13, fontFamily:"var(--font-body)", marginTop:2 }}>{formatDate(event.date)}{event.location?` - ${event.location}`:""}</div>}
+          {!compact && event.address && <div style={{ color:"#F3F0EB", fontSize:12, fontFamily:"var(--font-body)", marginTop:1 }}>{event.address}</div>}
         </div>
         <div style={{ display:"flex", gap:6, justifyContent:"center", marginTop:compact?4:8 }}>
           <button onClick={() => setShowGuestPanel(true)} aria-label={`Guest list - ${allPeople.length} people`} title="Guest List" style={{ background:"rgba(255,255,255,0.2)", border:"none", borderRadius:8, padding:"8px 12px", color:"#fff", fontSize:13, cursor:"pointer", fontFamily:"var(--font-body)" }}>
@@ -217,15 +217,15 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
           <div style={{ display:"flex", justifyContent:"space-between", marginBottom:5 }}>
             {[{l:"GUESTS",v:allPeople.length},{l:"ITEMS",v:items.length},{l:"CLAIMED",v:assignedCount},{l:"NEEDED",v:items.length-assignedCount}].map(s => (
               <div key={s.l} style={{ textAlign:"center" }}>
-                <div style={{ fontSize:18, fontWeight:"bold", color:"#F5E6D0" }}>{s.v}</div>
-                <div style={{ fontSize:12, color:"#F5E6D0", fontFamily:"var(--font-body)", letterSpacing:"1px" }}>{s.l}</div>
+                <div style={{ fontSize:18, fontWeight:"bold", color:"#F3F0EB" }}>{s.v}</div>
+                <div style={{ fontSize:12, color:"#F3F0EB", fontFamily:"var(--font-body)", letterSpacing:"1px" }}>{s.l}</div>
               </div>
             ))}
           </div>
-          <div style={{ height:3, background:"rgba(0,0,0,0.2)", borderRadius:2 }}>
+          <div style={{ height:3, background:"rgba(255,255,255,0.28)", borderRadius:2 }}>
             <div style={{ height:"100%", width:`${progress}%`, background:"rgba(255,255,255,0.6)", borderRadius:2, transition:"width 0.5s" }} />
           </div>
-          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:12, color:"#F5E6D0", fontFamily:"var(--font-body)" }}>SAVED</div>}
+          {savedFlash && <div style={{ position:"absolute", right:0, top:-18, fontSize:12, color:"#F3F0EB", fontFamily:"var(--font-body)" }}>SAVED</div>}
         </div>
       )}
     </header>
@@ -233,7 +233,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
 
   // TAB BARS
   const TabScroll = () => (
-    <nav aria-label="Category tabs" style={{ background:T.bg, borderBottom:"1px solid rgba(0,0,0,0.08)" }}>
+    <nav aria-label="Category tabs" style={{ background:T.bg, borderBottom:"1px solid rgba(255,255,255,0.12)" }}>
       <div role="tablist" style={{ display:"flex", overflowX:"auto", scrollbarWidth:"none", padding:"0 8px" }}>
         {ALL_TABS.map(t => {
           const color = CAT_COLORS_LIGHT[t];
@@ -260,7 +260,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
   // QUICK ADD ROW
   const QuickAdd = () => {
     if (isFood) return (
-      <div style={{ padding:"10px 16px", background:T.surface, borderBottom:"1px solid rgba(0,0,0,0.06)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+      <div style={{ padding:"10px 16px", background:T.surface, borderBottom:"1px solid rgba(255,255,255,0.08)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
         <span style={{ fontSize:13, fontFamily:"var(--font-body)", color:T.textMuted, letterSpacing:"1px" }}>
           {CAT_SYMBOLS[activeTab]} {activeTab.toUpperCase()}
         </span>
@@ -271,11 +271,11 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
     );
     const suggestions = NON_FOOD[activeTab]?.items.filter(s => !items.some(i => i.category === activeTab && i.name === s)) || [];
     return (
-      <div style={{ borderBottom:"1px solid rgba(0,0,0,0.06)" }}>
+      <div style={{ borderBottom:"1px solid rgba(255,255,255,0.08)" }}>
         <div style={{ display:"flex", overflowX:"auto", gap:6, padding:"10px 16px", scrollbarWidth:"none" }}>
           {suggestions.map(s => (
             <button key={s} onClick={() => addNonFood(s, activeTab)} style={{
-              flexShrink:0, background:T.surface, border:"1px solid rgba(0,0,0,0.1)",
+              flexShrink:0, background:T.surface, border:"1px solid rgba(255,255,255,0.14)",
               borderRadius:16, padding:"7px 14px", color:T.textMid, cursor:"pointer", fontSize:13, whiteSpace:"nowrap",
             }}>+ {s}</button>
           ))}
@@ -286,7 +286,7 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
 
   // BOTTOM NAV
   const BottomNav = () => (
-    <nav aria-label="Main navigation" style={{ position:"fixed", bottom:0, left:0, right:0, background:T.bg, borderTop:"1px solid rgba(0,0,0,0.1)", display:"flex", zIndex:200 }}>
+    <nav aria-label="Main navigation" style={{ position:"fixed", bottom:0, left:0, right:0, background:T.bg, borderTop:"1px solid rgba(255,255,255,0.14)", display:"flex", zIndex:200 }}>
       {[
         { id:"list", label:"LIST" },
         { id:"guests", label:"GUESTS" },
@@ -342,21 +342,21 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
         {/* Sidebar */}
         <aside>
           {/* Guest list */}
-          <div style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.08)", borderRadius:12, padding:16, marginBottom:16 }}>
+          <div style={{ background:T.surface, border:"1px solid rgba(255,255,255,0.12)", borderRadius:12, padding:16, marginBottom:16 }}>
             <p style={{ ...S.label, margin:"0 0 10px" }}>Guest List</p>
             {hosts.map(h => (
-              <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(200,75,49,0.15)", borderRadius:8, padding:"8px 12px", marginBottom:4 }}>
+              <div key={h.id} style={{ background:T.accentDim, border:"1px solid rgba(220,40,64,0.15)", borderRadius:8, padding:"8px 12px", marginBottom:4 }}>
                 <div style={{ fontSize:14, color:T.text }}>Host: {h.name}</div>
                 <div style={{ fontSize:12, color:T.accent, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===h.id).length} items</div>
               </div>
             ))}
             {guests.map(g => (
-              <div key={g.id} style={{ background:T.bg, border:"1px solid rgba(0,0,0,0.08)", borderRadius:8, padding:"8px 12px", marginBottom:4, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+              <div key={g.id} style={{ background:T.bg, border:"1px solid rgba(255,255,255,0.12)", borderRadius:8, padding:"8px 12px", marginBottom:4, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
                 <div>
                   <div style={{ fontSize:14, color:T.text }}>{g.name}</div>
                   <div style={{ fontSize:12, color:T.textMuted, fontFamily:"var(--font-body)", marginTop:2 }}>{items.filter(i=>i.assignedTo===g.id).length} items</div>
                 </div>
-                <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#6B4A32", cursor:"pointer", fontSize:18, padding:0 }}>&times;</button>
+                <button onClick={() => removeGuest(g.id)} aria-label={`Remove ${g.name}`} style={{ background:"none", border:"none", color:"#B3ACA3", cursor:"pointer", fontSize:18, padding:0 }}>&times;</button>
               </div>
             ))}
             <div style={{ display:"flex", gap:6, marginTop:8 }}>
@@ -368,11 +368,11 @@ ${ALL_TABS.map(cat=>{const ci=items.filter(i=>i.category===cat);if(!ci.length)re
 
           {/* Quick add for non-food */}
           {!isFood && NON_FOOD[activeTab] && (
-            <div style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.08)", borderRadius:12, padding:16 }}>
+            <div style={{ background:T.surface, border:"1px solid rgba(255,255,255,0.12)", borderRadius:12, padding:16 }}>
               <p style={{ ...S.label, margin:"0 0 10px" }}>Quick Add</p>
               {NON_FOOD[activeTab].items.filter(s => !items.some(i => i.category === activeTab && i.name === s)).map(s => (
                 <button key={s} onClick={() => addNonFood(s, activeTab)} style={{
-                  width:"100%", background:T.bg, border:"1px solid rgba(0,0,0,0.08)",
+                  width:"100%", background:T.bg, border:"1px solid rgba(255,255,255,0.12)",
                   borderRadius:8, padding:"9px 12px", color:T.textMid, cursor:"pointer",
                   textAlign:"left", fontSize:14, marginBottom:4,
                 }}>+ {s}</button>

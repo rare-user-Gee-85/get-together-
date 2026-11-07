@@ -31,7 +31,7 @@ export const NON_FOOD = {
     items: ["Spades","Dominoes","Bid Whist","Cornhole","Volleyball","Black Card Revoked","#CultureTags","Water Balloons","Horseshoes","UNO","Taboo","Jenga"],
   },
   Music: {
-    color: "#7B4FCF",
+    color: "#A47BFF",
     items: ["Old School R&B Playlist","90s Hip Hop Mix","Gospel Brunch Set","Line Dance Songs","Neo-Soul Vibes","Trap BBQ Mix","Afrobeats Mix","Smooth Jazz","Go-Go Mix"],
   },
   Activities: {
@@ -43,7 +43,7 @@ export const NON_FOOD = {
     items: ["Tables","Chairs","Canopy / Tent","Tablecloths","Extension Cord","Fans","Coolers","Folding Tables","Pop-Up Tent","String Lights","Generator","Tarp"],
   },
   Cleanup: {
-    color: "#7A6A3A",
+    color: "#C2AC5A",
     items: ["Trash Bags","Paper Towels","Dish Soap","Sponges","Broom & Dustpan","Recycling Bags","Spray Cleaner","Wet Wipes","Gloves","Compost Bags"],
   },
   Ice: {
@@ -58,10 +58,10 @@ export const VIBES = [
 ];
 
 export const CAT_COLORS = {
-  Meat: "#C84B31", Sides: "#D4813A", Desserts: "#C25B9E",
+  Meat: "#DC2840", Sides: "#D4813A", Desserts: "#C25B9E",
   Bread: "#B8860B", Condiments: "#7A9E3A", Drinks: "#3A7DC9",
-  Supplies: "#5A7A6A", Games: "#2E9E6B", Music: "#7B4FCF",
-  Activities: "#C9A23A", Setup: "#5A8A9F", Cleanup: "#7A6A3A", Ice: "#3A8AB0",
+  Supplies: "#5A7A6A", Games: "#2E9E6B", Music: "#A47BFF",
+  Activities: "#C9A23A", Setup: "#5A8A9F", Cleanup: "#C2AC5A", Ice: "#3A8AB0",
 };
 
 export const uid = () => Math.random().toString(36).slice(2, 9);
@@ -80,10 +80,10 @@ export const buildRSVPLink = (eventData, guestId) => {
 };
 
 export const CAT_COLORS_LIGHT = {
-  Meat: "#C84B31", Sides: "#F5A623", Desserts: "#264653",
-  Bread: "#8B5E3C", Condiments: "#5A7A3A", Drinks: "#2A9D8F",
-  Supplies: "#6A5A8A", Games: "#2A9D8F", Music: "#7B4FCF",
-  Activities: "#C9A23A", Setup: "#4A7A9B", Cleanup: "#7A6A3A", Ice: "#3A8AB0",
+  Meat: "#DC2840", Sides: "#F5A623", Desserts: "#5FA8BF",
+  Bread: "#C98B52", Condiments: "#8DB653", Drinks: "#2A9D8F",
+  Supplies: "#9B8AD1", Games: "#2A9D8F", Music: "#A47BFF",
+  Activities: "#C9A23A", Setup: "#6BA6CC", Cleanup: "#C2AC5A", Ice: "#3A8AB0",
 };
 
 export const CAT_SYMBOLS = {

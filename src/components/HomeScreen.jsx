@@ -42,80 +42,88 @@ const SAMPLE = [
   { item: "Ice", who: "Jr", done: false },
 ];
 
+const PILLS = ["Free", "No account needed", "Works on your phone", "Text or email invites"];
+
 export default function HomeScreen({ onStart, onRules }) {
   const doneCount = SAMPLE.filter(s => s.done).length;
   const pct = Math.round((doneCount / SAMPLE.length) * 100);
+  const wrap = { width: "100%", maxWidth: 760, margin: "0 auto", padding: "0 24px", boxSizing: "border-box" };
+  const eyebrow = { fontFamily: "var(--font-body)", fontSize: 13, fontWeight: 700, letterSpacing: "3px", color: T.accent, textTransform: "uppercase" };
 
   return (
-    <div style={{ minHeight: "100vh", background: T.bg, display: "flex", flexDirection: "column" }}>
-      {/* Hero */}
-      <header style={{ background: T.accent, position: "relative", overflow: "hidden", padding: "56px 24px 48px", textAlign: "center" }}>
-        {[...Array(10)].map((_, i) => (
-          <div key={i} aria-hidden="true" style={{ position: "absolute", left: 0, right: 0, height: 1, background: "rgba(0,0,0,0.08)", top: 28 + i * 18 }} />
-        ))}
-        <div aria-hidden="true" style={{ position: "absolute", right: -10, top: -10, fontSize: 180, fontFamily: "var(--font-body)", fontWeight: "bold", color: "rgba(0,0,0,0.08)", lineHeight: 1, userSelect: "none" }}>G</div>
-        <div style={{ position: "relative", maxWidth: 640, margin: "0 auto" }}>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", color:"#F5E6D0", marginBottom: 14 }}>COOKOUT COMMAND STATION</div>
-          <h1 style={{ fontFamily: "var(--font-body)", fontSize: "clamp(40px,11vw,64px)", fontWeight: 600, color: "#F5E6D0", margin: "0 0 14px", lineHeight: 1.05 }}>Get Together</h1>
-          <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", fontSize: "clamp(20px,5vw,26px)", color: "#F5E6D0", margin: "0 0 32px", lineHeight: 1.3 }}>
-            Plan it. Bring it. Grill it.
-          </p>
-          <button onClick={onStart} style={{ background: T.text, color: T.bg, border: "none", borderRadius: 10, padding: "18px 0", width: "100%", maxWidth: 360, fontFamily: "var(--font-body)", fontSize: 17, cursor: "pointer", letterSpacing: "1px", boxShadow: "0 6px 0 rgba(0,0,0,0.25)" }}>
-            START PLANNING
-          </button>
-          <div style={{ marginTop: 16, fontFamily: "var(--font-body)", fontSize: 13, letterSpacing: "1.5px", color: "#F5E6D0" }}>
-            FREE &middot; NO ACCOUNT NEEDED
-          </div>
+    <div style={{ minHeight: "100vh", background: T.bg, color: T.text, display: "flex", flexDirection: "column" }}>
+      <header style={{ ...wrap, paddingTop: 28, display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 900, fontSize: 26, letterSpacing: "-0.5px", textTransform: "uppercase" }}>
+          Get <span style={{ color: T.accent }}>Together</span>
         </div>
+        <div style={eyebrow}>Cookout command station</div>
       </header>
 
-      <main style={{ flex: 1, padding: "44px 24px 28px", display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
-        {/* How it works */}
-        <section aria-labelledby="how" style={{ width: "100%", maxWidth: 720 }}>
-          <h2 id="how" style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", fontWeight: 600, color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>HOW IT WORKS</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 14 }}>
+      <section style={{ ...wrap, paddingTop: 56, paddingBottom: 36 }}>
+        <h1 style={{ margin: 0, fontSize: "clamp(52px, 15vw, 104px)", lineHeight: 0.95, color: T.text }}>
+          Plan it.<br />Bring it.<br /><span style={{ color: T.accent }}>Grill it.</span>
+        </h1>
+        <p style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: "clamp(19px, 4.6vw, 24px)", lineHeight: 1.45, color: T.textMid, margin: "28px 0 28px", maxWidth: 520 }}>
+          Assign the food. Invite your people. Keep the whole cookout running smooth.
+        </p>
+        <div aria-hidden="true" style={{ height: 3, background: T.accent, marginBottom: 32 }} />
+        <button onClick={onStart} style={{ background: T.accent, color: "#fff", border: "none", borderRadius: 12, padding: "20px 0", width: "100%", maxWidth: 420, fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, cursor: "pointer", letterSpacing: "1px", textTransform: "uppercase" }}>
+          Start planning
+        </button>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 22 }}>
+          {PILLS.map(t => (
+            <span key={t} style={{ border: `1px solid ${T.borderHover}`, borderRadius: 999, padding: "9px 18px", fontFamily: "var(--font-body)", fontWeight: 500, fontSize: 15, color: T.text }}>{t}</span>
+          ))}
+        </div>
+      </section>
+
+      <main style={{ ...wrap, flex: 1, paddingTop: 24, paddingBottom: 24, display: "flex", flexDirection: "column", gap: 44 }}>
+        <section aria-labelledby="how">
+          <h2 id="how" style={{ ...eyebrow, margin: "0 0 18px" }}>How it works</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 14 }}>
             {STEPS.map(({ icon, title, text }, i) => (
-              <div key={title} style={{ background: T.surface, borderRadius: 14, padding: "20px 18px", border: `1px solid ${T.border}` }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+              <div key={title} style={{ background: T.surface, borderRadius: 14, padding: "22px 20px", border: `1px solid ${T.border}` }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
                   {icon}
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "1.2px", color: T.accent }}>STEP {i + 1}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 13, letterSpacing: "2px", color: T.accent }}>STEP {i + 1}</span>
                 </div>
-                <div style={{ fontFamily: "var(--font-body)", fontSize: 18, color: T.text, marginBottom: 6 }}>{title}</div>
-                <div style={{ fontFamily: "var(--font-body)", fontSize: 15, color: T.textMid, lineHeight: 1.55 }}>{text}</div>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: T.text, marginBottom: 6 }}>{title}</div>
+                <div style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: 16, color: T.textMid, lineHeight: 1.5 }}>{text}</div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Sample preview */}
-        <section aria-labelledby="preview" style={{ width: "100%", maxWidth: 420 }}>
-          <h2 id="preview" style={{ fontFamily: "var(--font-body)", fontSize: 12, letterSpacing: "2px", fontWeight: 600, color: T.textMuted, textAlign: "center", margin: "0 0 20px" }}>A PEEK AT COOKOUT DAY</h2>
-          <div style={{ background: T.surface, borderRadius: 14, border: `1px solid ${T.border}`, padding: 20 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 10 }}>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: 18, color: T.text }}>Family Reunion Cookout</span>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: T.accent }}>{pct}% READY</span>
+        <section aria-labelledby="preview" style={{ maxWidth: 460 }}>
+          <h2 id="preview" style={{ ...eyebrow, margin: "0 0 18px" }}>A peek at cookout day</h2>
+          <div style={{ background: T.surface, borderRadius: 14, border: `1px solid ${T.border}`, padding: 22 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12, gap: 10 }}>
+              <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 21, color: T.text }}>Family Reunion Cookout</span>
+              <span style={{ fontFamily: "var(--font-body)", fontWeight: 700, fontSize: 13, letterSpacing: "1px", color: T.accent, whiteSpace: "nowrap" }}>{pct}% READY</span>
             </div>
-            <div style={{ height: 8, borderRadius: 4, background: T.surface2, overflow: "hidden", marginBottom: 16 }}>
-              <div style={{ width: `${pct}%`, height: "100%", background: T.green }} />
+            <div style={{ height: 10, borderRadius: 5, background: T.surface2, overflow: "hidden", marginBottom: 16 }}>
+              <div style={{ width: `${pct}%`, height: "100%", background: T.accent }} />
             </div>
             {SAMPLE.map(({ item, who, done }) => (
-              <div key={item} style={{ display: "flex", alignItems: "center", gap: 12, padding: "9px 0", borderTop: `1px solid ${T.border}` }}>
-                <span aria-hidden="true" style={{ width: 20, height: 20, borderRadius: "50%", border: `2px solid ${done ? T.green : T.borderHover}`, background: done ? T.green : "transparent", color: "#fff", fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center" }}>{done ? "✓" : ""}</span>
-                <span style={{ flex: 1, fontFamily: "var(--font-body)", fontSize: 16, color: T.text, textDecoration: done ? "line-through" : "none", opacity: done ? 0.6 : 1 }}>{item}</span>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: 13, color: T.textMuted }}>{who}</span>
+              <div key={item} style={{ display: "flex", alignItems: "center", gap: 12, padding: "11px 0", borderTop: `1px solid ${T.border}` }}>
+                <span aria-hidden="true" style={{ width: 22, height: 22, borderRadius: "50%", border: `2px solid ${done ? T.green : T.borderHover}`, background: done ? T.green : "transparent", color: "#fff", fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{done ? "\u2713" : ""}</span>
+                <span style={{ flex: 1, fontFamily: "var(--font-body)", fontWeight: 600, fontSize: 17, color: T.text, textDecoration: done ? "line-through" : "none", opacity: done ? 0.6 : 1 }}>{item}</span>
+                <span style={{ fontFamily: "var(--font-body)", fontWeight: 500, fontSize: 15, color: T.textMuted }}>{who}</span>
               </div>
             ))}
           </div>
-          <div style={{ textAlign: "center", marginTop: 12, fontFamily: "var(--font-body)", fontSize: 12, color: T.textMuted }}>Sample data</div>
+          <div style={{ marginTop: 10, fontFamily: "var(--font-body)", fontWeight: 500, fontSize: 13, color: T.textMuted }}>Sample data</div>
         </section>
 
-        <button onClick={onRules} style={{ background: "none", border: `1px solid ${T.borderHover}`, borderRadius: 24, color: T.textMid, fontSize: 13, fontFamily: "var(--font-body)", letterSpacing: "1.2px", cursor: "pointer", padding: "10px 24px" }}>
-          COOKOUT RULES
-        </button>
+        <div>
+          <button onClick={onRules} style={{ background: "none", border: `1px solid ${T.borderHover}`, borderRadius: 999, color: T.text, fontSize: 15, fontFamily: "var(--font-body)", fontWeight: 600, letterSpacing: "1px", cursor: "pointer", padding: "12px 26px" }}>
+            Cookout rules
+          </button>
+        </div>
       </main>
 
-      <footer style={{ textAlign: "center", padding: "20px 24px 32px", fontFamily: "var(--font-body)", fontSize: 13, letterSpacing: "1px", color: T.textMid }}>
-        A <a href="https://rare-user.com" style={{ color: T.accent }}>RARE UX Design</a> tool
+      <footer style={{ ...wrap, paddingTop: 20, paddingBottom: 36, fontFamily: "var(--font-body)", fontWeight: 500, fontSize: 15, color: T.textMid }}>
+        A <a href="https://rare-user.com" style={{ color: T.text, fontWeight: 700 }}>RARE UX Design</a> tool
       </footer>
     </div>
   );

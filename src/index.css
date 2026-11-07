@@ -1,13 +1,13 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --font-body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Bricolage Grotesque', 'DM Sans', system-ui, sans-serif;
+  --font-body: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Jost', system-ui, sans-serif;
 }
 
 body {
-  background: #F5E6D0;
-  color: #1A0800;
+  background: #0C0C0C;
+  color: #F3F0EB;
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 16px;
@@ -20,17 +20,17 @@ button, input, select, textarea { font-family: var(--font-body); font-weight: 60
 input::placeholder { font-weight: 500; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #F5E6D0; }
-::-webkit-scrollbar-thumb { background: rgba(200,75,49,0.3); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #C84B31; }
+::-webkit-scrollbar-track { background: #0C0C0C; }
+::-webkit-scrollbar-thumb { background: rgba(220,40,64,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #DC2840; }
 
-input::placeholder { color: #6B4A32; }
-input:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(200,75,49,0.2); }
-select:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(200,75,49,0.2); }
+input::placeholder { color: #B3ACA3; }
+input:focus { border-color: rgba(220,40,64,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(220,40,64,0.2); }
+select:focus { border-color: rgba(220,40,64,0.5) !important; outline: none; box-shadow: 0 0 0 3px rgba(220,40,64,0.2); }
 
 /* Keyboard focus indicators -- only show on keyboard navigation */
 *:focus-visible {
-  outline: 2px solid #C84B31 !important;
+  outline: 2px solid #DC2840 !important;
   outline-offset: 2px;
 }
 
@@ -46,8 +46,8 @@ select:focus { border-color: rgba(200,75,49,0.5) !important; outline: none; box-
   left: 16px;
   z-index: 9999;
   padding: 12px 20px;
-  background: #1A0800;
-  color: #F5E6D0;
+  background: #DC2840;
+  color: #fff;
   font-family: monospace;
   font-size: 13px;
   text-decoration: none;

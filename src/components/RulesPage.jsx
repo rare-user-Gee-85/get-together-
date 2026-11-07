@@ -81,20 +81,20 @@ export default function RulesPage() {
       {/* Hero */}
       <div style={{ background:T.accent, padding:"56px 24px 48px", textAlign:"center", position:"relative", overflow:"hidden" }}>
         {[...Array(10)].map((_,i) => (
-          <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(0,0,0,0.08)", top: 20 + i*18 }} />
+          <div key={i} style={{ position:"absolute", left:0, right:0, height:1, background:"rgba(255,255,255,0.12)", top: 20 + i*18 }} />
         ))}
         <div style={{ maxWidth:640, margin:"0 auto", position:"relative" }}>
-          <div style={{ color:"#F5E6D0", fontSize:12, letterSpacing:"6px", fontFamily:"var(--font-body)", marginBottom:16, textTransform:"uppercase" }}>
+          <div style={{ color:"#F3F0EB", fontSize:12, letterSpacing:"6px", fontFamily:"var(--font-body)", marginBottom:16, textTransform:"uppercase" }}>
             GET TOGETHER
           </div>
-          <h1 style={{ fontSize:"clamp(36px,8vw,64px)", fontWeight:600, color:"#F5E6D0", lineHeight:1.1, margin:"0 0 16px" }}>
+          <h1 style={{ fontSize:"clamp(36px,8vw,64px)", fontWeight:600, color:"#F3F0EB", lineHeight:1.1, margin:"0 0 16px" }}>
             Cookout Rules
           </h1>
-          <p style={{ color:"#F5E6D0", fontSize:16, lineHeight:1.8, fontStyle:"italic", margin:"0 0 24px" }}>
+          <p style={{ color:"#F3F0EB", fontSize:16, lineHeight:1.8, fontStyle:"italic", margin:"0 0 24px" }}>
             Unwritten. Understood. Non-negotiable.<br />
             Passed down through every backyard, every reunion, every block party.
           </p>
-          <p style={{ color:"#F5E6D0", fontSize:13, fontFamily:"var(--font-body)", letterSpacing:"1.2px" }}>
+          <p style={{ color:"#F3F0EB", fontSize:13, fontFamily:"var(--font-body)", letterSpacing:"1.2px" }}>
             12 RULES - MEMORIZE THEM
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function RulesPage() {
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(380px, 1fr))", gap:16, marginBottom:64 }}>
           {RULES.map(rule => (
             <div key={rule.number} style={{
-              background:T.surface, border:"1px solid rgba(0,0,0,0.08)",
+              background:T.surface, border:"1px solid rgba(255,255,255,0.12)",
               borderRadius:12, padding:"24px",
               borderLeft:`3px solid ${rule.number <= "06" ? T.accent : "#D4813A"}`,
             }}>
@@ -134,7 +134,7 @@ export default function RulesPage() {
         </div>
 
         {/* Quick Tips */}
-        <div style={{ borderTop:"1px solid rgba(0,0,0,0.08)", paddingTop:48, marginBottom:64 }}>
+        <div style={{ borderTop:"1px solid rgba(255,255,255,0.12)", paddingTop:48, marginBottom:64 }}>
           <h2 style={{ fontSize:28, fontWeight:600, color:T.text, margin:"0 0 8px" }}>
             Pro Tips
           </h2>
@@ -143,7 +143,7 @@ export default function RulesPage() {
           </p>
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(320px, 1fr))", gap:10 }}>
             {QUICK_TIPS.map((tip, i) => (
-              <div key={i} style={{ background:T.surface, border:"1px solid rgba(0,0,0,0.06)", borderRadius:8, padding:"14px 16px", display:"flex", gap:12, alignItems:"flex-start" }}>
+              <div key={i} style={{ background:T.surface, border:"1px solid rgba(255,255,255,0.08)", borderRadius:8, padding:"14px 16px", display:"flex", gap:12, alignItems:"flex-start" }}>
                 <span style={{ color:T.accent, fontFamily:"var(--font-body)", fontSize:13, flexShrink:0, marginTop:1 }}>*</span>
                 <p style={{ color:T.textMid, fontSize:15, lineHeight:1.7, margin:0 }}>{tip}</p>
               </div>
@@ -152,7 +152,7 @@ export default function RulesPage() {
         </div>
 
         {/* CTA */}
-        <div style={{ textAlign:"center", padding:"48px 24px", background:"rgba(200,75,49,0.06)", border:"1px solid rgba(200,75,49,0.15)", borderRadius:16 }}>
+        <div style={{ textAlign:"center", padding:"48px 24px", background:"rgba(220,40,64,0.06)", border:"1px solid rgba(220,40,64,0.15)", borderRadius:16 }}>
           <h2 style={{ fontSize:26, fontWeight:600, color:T.text, margin:"0 0 12px" }}>
             Ready to Plan Yours?
           </h2>
